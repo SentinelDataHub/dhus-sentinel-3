@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<!--
+  Data HUb Service (DHuS) - For Space data distribution.
+  Copyright (C) 2013,2014,2015,2016 European Space Agency (ESA)
+  Copyright (C) 2013,2014,2015,2016 GAEL Systems
+  Copyright (C) 2013,2014,2015,2016 Serco Spa
+
+  This file is part of DHuS software sources.
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<!DOCTYPE rdf:RDF [
+        <!ENTITY rdf  "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+        <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+        <!ENTITY owl  "http://www.w3.org/2002/07/owl#">
+        <!ENTITY s3   "http://www.esa.int/s3#">
+        <!ENTITY drb  "http://www.gael.fr/drb#">
+        <!ENTITY dhus "http://www.gael.fr/dhus#">
+        <!ENTITY img  "http://www.gael.fr/drb/image#">
+        ]>
+
+<rdf:RDF xmlns:owl ="&owl;"
+         xmlns:rdf ="&rdf;"
+         xmlns:rdfs="&rdfs;"
+         xmlns:s3  ="&s3;"
+         xmlns:drb ="&drb;"
+         xmlns:img ="&img;"
+         xmlns:dhus="&dhus;"
+         xml:base  ="&s3;">           
+      
+   <owl:Ontology rdf:about="&s3;"/>           
+   <rdf:Description rdf:about="&s3;ipf_level_1_2">
+      <dhus:support/>
+      <dhus:metadataTypes rdf:parseType="Literal">
+
+         <metadataType id="productlevel"
+                       name="Product level"
+                       contentType="text/plain"
+                       category="product">
+           	<solrField name="productlevel"
+                       type="text_general"/>
+         </metadataType> 
+
+         <metadataType id="GMLfootprint"
+                       name="Footprint"
+                       contentType="application/gml+xml"
+                       category="product">
+            <solrField name="gmlfootprint"
+                       type="string"/>
+         </metadataType>
+
+         <metadataType id="footprint"
+                       name="JTS footprint"
+                       contentType="application/jts"
+                       category="product">
+            <solrField name="footprint"
+                       type="location_rpt"/>
+         </metadataType> 
+
+      </dhus:metadataTypes>
+
+   
+      <dhus:metadataExtractor  rdf:parseType="Literal">
+         <![CDATA[                                 
+         declare namespace utils="java:fr.gael.drb.cortex.topic.sentinel3.Sentinel3Utils";
+         declare function local:footprint() as xs:string*
+         {
+            fn:data(*[matches (name(), "xfdumanifest.xml")]/XFDU/metadataSection/
+               metadataObject[@ID="measurementFrameSet"]/metadataWrap/xmlData/
+               frameSet/footPrint/posList)
+         };
+
+         <!-- PRODUCT LEVEL -->
+         <metadata
+            queryable="productlevel"
+            category="product" name="Product level" type="text/plain">
+            {
+               let $level := fn:substring (name(),8,1)
+                  return
+                     fn:concat("L",$level)
+            }
+         </metadata>,
+         
+         <metadata
+            queryable="GMLfootprint"
+            category="product"
+            name="Footprint"
+            type="application/gml+xml">
+            <gml:Polygon xmlns:gml="http://www.opengis.net/gml"
+               srsName="http://www.opengis.net/gml/srs/epsg.xml#4326">
+               <gml:outerBoundaryIs>
+                  <gml:LinearRing>
+                     <gml:coordinates>
+                     {
+                        utils:points2GML(local:footprint())
+                     }
+                     </gml:coordinates>
+                  </gml:LinearRing>
+               </gml:outerBoundaryIs>
+            </gml:Polygon>
+         </metadata>,
+   
+         <!-- JTS FOOTPRINT -->
+         <metadata
+            queryable="footprint"
+            category="product"
+            name="JTS footprint"
+            type="application/jts">
+            {
+               concat ("POLYGON ((",utils:points2JTS(local:footprint()),"))")
+            }
+         </metadata>                     
+  		 ]]>
+      </dhus:metadataExtractor>   
+    </rdf:Description> 
+</rdf:RDF>
