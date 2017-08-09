@@ -21,17 +21,16 @@
  */
 package fr.gael.drb.cortex.topic.sentinel3.jai.operator;
 
-import java.awt.RenderingHints;
-import java.awt.image.RenderedImage;
-import java.awt.image.renderable.ParameterBlock;
+import fr.gael.drb.cortex.topic.sentinel3.jai.operator.Common.PixelCorrection;
 
 import javax.media.jai.JAI;
 import javax.media.jai.OperationDescriptorImpl;
 import javax.media.jai.ParameterBlockJAI;
 import javax.media.jai.RenderedOp;
 import javax.media.jai.registry.RenderedRegistryMode;
-
-import fr.gael.drb.cortex.topic.sentinel3.jai.operator.Common.PixelCorrection;
+import java.awt.*;
+import java.awt.image.RenderedImage;
+import java.awt.image.renderable.ParameterBlock;
 
 /**
  * Describes the SLSTR Quicklook generator operator.
@@ -45,50 +44,48 @@ public class QuicklookSlstrDescriptor extends OperationDescriptorImpl
    public final static String OPERATION_NAME = "QuicklookSlstr";
 
    /**
-    * The resource strings that provide the general documentation and
-    * specify the parameter list for the "SLSTR" operation.
-    */
-   protected static String[][] resources =
-   {
-      { "GlobalName", OPERATION_NAME },
-      { "LocalName", OPERATION_NAME },
-      { "Vendor", "fr.gael.drb.cortex.topic.sentinel3.jai.operator" },
-      { "Description", "Performs the rendering of S3 SLSTR dataset." },
-      { "DocURL", "http://www.gael.fr/drb" },
-      { "Version", "1.0" },
-      { "arg0Desc", "per band pixels correction"},
-   };
-
-   /**
     * Modes supported by this operator.
     */
    private static String[] supportedModes = { "rendered" };
 
    /**
-    * The parameter names for the "QuicklookSlstr" operation..
+    * The resource strings that provide the general documentation and
+    * specify the parameter list for the "SLSTR" operation.
     */
-   private static String[] paramNames = { "pixels_correction" };
+   protected static String[][] resources =
+           {
+                   { "GlobalName", OPERATION_NAME },
+                   { "LocalName", OPERATION_NAME },
+                   { "Vendor", "fr.gael.drb.cortex.topic.sentinel3.jai.operator" },
+                   { "Description", "Performs the rendering of S3 SLSTR L1 dataset." },
+                   { "DocURL", "http://www.gael.fr/drb" },
+                   { "Version", "1.0" },
+                   { "arg0Desc", "per band pixels correction"},
+                   { "arg1Desc", "detector indexes"},
+                   { "arg2Desc", "solar zenith angle"},
+                   { "arg3Desc", "solar flux s5"},
+                   { "arg4Desc", "solar flux s3"},
+                   { "arg5Desc", "solar flux s1"},
+           };
 
    /**
-    * The parameter class types for the "QuicklookSlstr" operation.
+    * The parameter names for the operation..
     */
-   private static Class<?>[] paramClasses = { PixelCorrection[].class };
+   private static String[] paramNames = {"pixels_correction", "detectors", "sza", "solar_flux_s5",
+           "solar_flux_s3", "solar_flux_s1" };
 
    /**
-    * The parameter default values for the "QuicklookSlstr" operation..
+    * The parameter class types for the operation.
     */
-   private static Object[] paramDefault={ null };
+   private static Class<?>[] paramClasses = { PixelCorrection[].class, short[][].class, double[][].class,
+           double[].class, double[].class, double[].class};
 
-   /**
-    * Constructs a new Slstr operator, with the parameters specified in
-    * static fields. 3 sources are expected.
-    */
    public QuicklookSlstrDescriptor()
    {
       super(resources, supportedModes, 3, paramNames, paramClasses,
-            paramDefault, null);
+              null, null);
    }
-   
+
    /**
     * Create the Render Operator to compute SLSTR quicklook.
     *
@@ -104,12 +101,11 @@ public class QuicklookSlstrDescriptor extends OperationDescriptorImpl
     * @throws IllegalArgumentException if sources is null.
     * @throws IllegalArgumentException if a source is null.
     */
-   public static RenderedOp create(PixelCorrection[]pixels_correction,
-      RenderingHints hints, RenderedImage... sources)
+   public static RenderedOp create(PixelCorrection[]pixels_correction, short[][] detectors, double[][]sza,
+                                   float[][] solar_flux_s5, float[][] solar_flux_s3, float[][] solar_flux_s1,
+                                   RenderingHints hints, RenderedImage... sources)
    {
-      ParameterBlockJAI pb =
-         new ParameterBlockJAI(OPERATION_NAME,
-               RenderedRegistryMode.MODE_NAME);
+      ParameterBlockJAI pb = new ParameterBlockJAI(OPERATION_NAME, RenderedRegistryMode.MODE_NAME);
 
       int numSources = sources.length;
       // Check on the source number
@@ -117,7 +113,7 @@ public class QuicklookSlstrDescriptor extends OperationDescriptorImpl
       {
          throw new IllegalArgumentException("No resources are present");
       }
-      
+
       // Setting of all the sources
       for (int index = 0; index < numSources; index++)
       {
@@ -127,8 +123,15 @@ public class QuicklookSlstrDescriptor extends OperationDescriptorImpl
             throw new IllegalArgumentException("This resource is null");
          }
          pb.setSource(source, index);
-         pb.setParameter(paramNames[0], pixels_correction);
       }
+      /*To Be remove */
+      pb.setParameter(paramNames[0], pixels_correction);
+      pb.setParameter(paramNames[1], detectors);
+      pb.setParameter(paramNames[2], sza);
+      pb.setParameter(paramNames[3], solar_flux_s5);
+      pb.setParameter(paramNames[4], solar_flux_s3);
+      pb.setParameter(paramNames[5], solar_flux_s1);
+
       return JAI.create(OPERATION_NAME, pb, hints);
    } //create
 }

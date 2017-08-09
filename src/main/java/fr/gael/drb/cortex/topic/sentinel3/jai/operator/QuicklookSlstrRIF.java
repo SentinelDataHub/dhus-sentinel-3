@@ -31,11 +31,9 @@ import fr.gael.drb.value.ValueArray;
 import fr.gael.drbx.image.DrbCollectionImage;
 import fr.gael.drbx.image.DrbImage;
 import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
-
 import org.apache.log4j.Logger;
 
-import java.awt.Color;
-import java.awt.RenderingHints;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.Raster;
 import java.awt.image.RenderedImage;

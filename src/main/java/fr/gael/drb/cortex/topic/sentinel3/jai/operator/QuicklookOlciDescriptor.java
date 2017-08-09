@@ -21,22 +21,6 @@
  */
 package fr.gael.drb.cortex.topic.sentinel3.jai.operator;
 
-import java.awt.RenderingHints;
-import java.awt.image.RenderedImage;
-import java.awt.image.renderable.ParameterBlock;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-import javax.media.jai.JAI;
-import javax.media.jai.OperationDescriptorImpl;
-import javax.media.jai.ParameterBlockJAI;
-import javax.media.jai.RenderedImageList;
-import javax.media.jai.RenderedOp;
-import javax.media.jai.registry.RenderedRegistryMode;
-
-import org.apache.log4j.Logger;
-
 import fr.gael.drb.DrbFactory;
 import fr.gael.drb.DrbNode;
 import fr.gael.drb.cortex.topic.sentinel3.jai.operator.Common.PixelCorrection;
@@ -44,6 +28,16 @@ import fr.gael.drb.impl.DrbFactoryResolver;
 import fr.gael.drbx.cortex.DrbCortexMetadataResolver;
 import fr.gael.drbx.image.ImageFactory;
 import fr.gael.drbx.image.jai.RenderingFactory;
+import org.apache.log4j.Logger;
+
+import javax.imageio.ImageIO;
+import javax.media.jai.*;
+import javax.media.jai.registry.RenderedRegistryMode;
+import java.awt.*;
+import java.awt.image.RenderedImage;
+import java.awt.image.renderable.ParameterBlock;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Implements descriptor to register OLCI Quicklook renderer into JAI API.
@@ -135,9 +129,9 @@ public class QuicklookOlciDescriptor extends OperationDescriptorImpl
     * @throws IllegalArgumentException if sources is null.
     * @throws IllegalArgumentException if a source is null.
     */
-   public static RenderedOp create(short[][] detectors, double[][]sza, 
-      float[][]solar_flux, PixelCorrection[]pixels_correction, int[]bands,
-      int[]bands_coefficients, RenderingHints hints, RenderedImage... sources)
+   public static RenderedOp create(short[][] detectors, double[][]sza,
+                                   float[][]solar_flux, PixelCorrection[]pixels_correction, int[]bands,
+                                   int[]bands_coefficients, RenderingHints hints, RenderedImage... sources)
    {
       ParameterBlockJAI pb =
          new ParameterBlockJAI(OPERATION_NAME,

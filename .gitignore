@@ -51,7 +51,7 @@ nb-configuration.xml
 .project
 .settings/
 
-#Vi
+# Vi
 *.swp
 
 # Intellij
@@ -65,6 +65,7 @@ nb-configuration.xml
 # Maven
 target/
 local_dhus_test/
+test-output/
 
 # others
 client/webclient/install/

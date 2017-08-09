@@ -23,7 +23,7 @@ package fr.gael.drb.cortex.topic.sentinel3.jai.operator;
 
 import org.apache.log4j.Logger;
 
-import java.awt.Color;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
@@ -49,8 +49,8 @@ public class S3HistogramEqualizer
     * @return the equalized image.
     */
    public static BufferedImage histogramEqualization(
-         double[][] input_red, double[][] input_green, double[][] input_blue,
-         InputStream equalizationFile)
+           double[][] input_red, double[][] input_green, double[][] input_blue,
+           InputStream equalizationFile)
    {
       int[][] red   = new int[input_red.length][input_red[0].length];
       int[][] green = new int[input_red.length][input_red[0].length];
@@ -79,8 +79,8 @@ public class S3HistogramEqualizer
     * @return the equalized image.
     */
    public static BufferedImage histogramEqualization(
-         int[][] input_red, int[][] input_green, int[][] input_blue,
-         InputStream equalization_file)
+           int[][] input_red, int[][] input_green, int[][] input_blue,
+           InputStream equalization_file)
    {
       // Get the Lookup table for histogram equalization
       List<int[]> hist_lut;
@@ -111,14 +111,14 @@ public class S3HistogramEqualizer
          catch (Exception e)
          {
             LOGGER.warn(
-                  "Unable to load LUT for equalization. Using a dynamic LUT. "
-                  + e.getMessage());
+                    "Unable to load LUT for equalization. Using a dynamic LUT. "
+                            + e.getMessage());
             hist_lut = histogramEqualizationLUT(input_red, input_green, input_blue);
          }
       }
 
       BufferedImage histogramEQ = new BufferedImage(
-            input_red.length, input_red[0].length, BufferedImage.TYPE_3BYTE_BGR);
+              input_red.length, input_red[0].length, BufferedImage.TYPE_3BYTE_BGR);
 
       int red, green, blue, new_pixel;
       for (int i = 0; i < input_red.length; i++)
@@ -141,9 +141,9 @@ public class S3HistogramEqualizer
             blue = hist_lut.get(2)[blue];
 
             new_pixel = new Color(
-                  red * 255 / Common.colorRange,
-                  green * 255 / Common.colorRange,
-                  blue * 255 / Common.colorRange).getRGB();
+                    red * 255 / Common.colorRange,
+                    green * 255 / Common.colorRange,
+                    blue * 255 / Common.colorRange).getRGB();
 
             // Write pixels into image
             histogramEQ.setRGB(i, j, new_pixel);
@@ -162,7 +162,7 @@ public class S3HistogramEqualizer
     * @return the resulting LUT
     */
    private static List<int[]> histogramEqualizationLUT(int[][] input_red,
-         int[][] input_green, int[][] input_blue)
+                                                       int[][] input_green, int[][] input_blue)
    {
       // Get an image histogram - calculated values by R, G, B channels
       List<int[]> image_hist = imageHistogram(input_red, input_green, input_blue);
@@ -194,7 +194,7 @@ public class S3HistogramEqualizer
 
       // Calculate the scale factor
       float scale_factor =
-            (float) (Common.colorRange * 1. / (input_red.length * input_red[0].length));
+              (float) (Common.colorRange * 1. / (input_red.length * input_red[0].length));
 
       for (int i = 0; i < rhistogram.length; i++)
       {
@@ -231,7 +231,7 @@ public class S3HistogramEqualizer
     * @return
     */
    private static List<int[]> imageHistogram(
-         int[][] input_red, int[][] input_green, int[][] input_blue)
+           int[][] input_red, int[][] input_green, int[][] input_blue)
    {
       int[] rhistogram = new int[Common.colorRange + 1];
       int[] ghistogram = new int[Common.colorRange + 1];
@@ -249,7 +249,6 @@ public class S3HistogramEqualizer
       {
          bhistogram[i] = 0;
       }
-      boolean flag = false;
 
       for (int i = 0; i < input_red.length; i++)
       {
@@ -259,22 +258,13 @@ public class S3HistogramEqualizer
             int green = input_green[i][j];
             int blue = input_blue[i][j];
 
-            // Increase the values of colors
-            if (red == 0 && green == 0 && blue == 0)
+            // ignore black as it may ben NaN
+            if (red != 0 && green != 0 && blue != 0)
             {
-               if (!flag)
-               {
-                  flag = true;
-                  continue;
-               }
-               else
-               {
-                  flag = false;
-               }
+               rhistogram[red]++;
+               ghistogram[green]++;
+               bhistogram[blue]++;
             }
-            rhistogram[red]++;
-            ghistogram[green]++;
-            bhistogram[blue]++;
          }
       }
 

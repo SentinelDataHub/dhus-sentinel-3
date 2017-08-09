@@ -31,10 +31,9 @@ import fr.gael.drb.value.Integer;
 import fr.gael.drb.value.Short;
 import fr.gael.drbx.image.DrbCollectionImage;
 import fr.gael.drbx.image.DrbImage;
-
 import org.apache.log4j.Logger;
 
-import java.awt.RenderingHints;
+import java.awt.*;
 import java.awt.image.RenderedImage;
 import java.awt.image.renderable.ParameterBlock;
 import java.awt.image.renderable.RenderedImageFactory;
@@ -106,8 +105,8 @@ public class QuicklookOlciRIF implements RenderedImageFactory
     * @return TOA reflectance defined in [0, 1]
     */
    private double[][] radianceToReflectance(RenderedImage band,
-         PixelCorrection pc, short[][] detectors, int band_number,
-         double[][] sza, float[][] solar_flux)
+                                            PixelCorrection pc, short[][] detectors, int band_number,
+                                            double[][] sza, float[][] solar_flux)
    {
       int width = band.getData().getWidth();
       int height = band.getData().getHeight();

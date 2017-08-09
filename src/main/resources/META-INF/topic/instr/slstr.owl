@@ -22,12 +22,12 @@
 
 -->
 <!DOCTYPE rdf:RDF [
-   <!ENTITY rdf  "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-   <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
-   <!ENTITY owl  "http://www.w3.org/2002/07/owl#">
-   <!ENTITY s3   "http://www.esa.int/s3#">
-   <!ENTITY drb  "http://www.gael.fr/drb#">
-   <!ENTITY img "http://www.gael.fr/drb/image#">
+<!ENTITY rdf  "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+<!ENTITY owl  "http://www.w3.org/2002/07/owl#">
+<!ENTITY s3   "http://www.esa.int/s3#">
+<!ENTITY drb  "http://www.gael.fr/drb#">
+<!ENTITY img "http://www.gael.fr/drb/image#">
 ]>
 <rdf:RDF xmlns:owl="&owl;"
          xmlns:rdf="&rdf;"
@@ -37,124 +37,124 @@
          xmlns:s3="&s3;"
          xml:base="&s3;">
 
-   <owl:Ontology rdf:about="&s3;">
-      <rdfs:label xml:lang="en">Sentinel-3 - Level 1-2 Ontology</rdfs:label>
-   </owl:Ontology>
-   
-   <!-- =================================================================== -->
-   <!--                                                                     -->
-   <!--      IPF Level 1-2 (SLSTR)                                          -->
-   <!--                                                                     -->
-   <!-- =================================================================== -->
+	<owl:Ontology rdf:about="&s3;">
+		<rdfs:label xml:lang="en">Sentinel-3 - Level 1-2 Ontology</rdfs:label>
+	</owl:Ontology>
+
+	<!-- =================================================================== -->
+	<!--                                                                     -->
+	<!--      IPF Level 1-2 (SLSTR)                                          -->
+	<!--                                                                     -->
+	<!-- =================================================================== -->
 
 
-   <owl:Class rdf:about="&s3;ipf_slstr_level_1_2">
-      <rdfs:label xml:lang="en">IPF Level-1 and Level-2 (SLSTR) Common </rdfs:label>
-      <rdfs:comment xml:lang="en">
+	<owl:Class rdf:about="&s3;ipf_slstr_level_1_2">
+		<rdfs:label xml:lang="en">IPF Level-1 and Level-2 (SLSTR) Common </rdfs:label>
+		<rdfs:comment xml:lang="en">
          IPF containing level-1 processing item. It consists on
          MSI raw-image-data (compressed) in raw ISP format.
-      </rdfs:comment>      
-      <rdfs:subClassOf rdf:resource="&s3;ipf_level_1_2"/>
-      <drb:signature rdf:parseType="Resource">
-         <drb:nameMatch>S3[AB_]_SL_[12]_.*</drb:nameMatch>	  	 
-      </drb:signature>
-   </owl:Class>
-   
-   <!-- =================================================================== -->
-   <!--                                                                     -->
-   <!--      IPF Level 1 (SLSTR)                                            -->
-   <!--                                                                     -->
-   <!-- =================================================================== -->
-      
-   <owl:Class rdf:about="&s3;ipf_slstr_level_1">
-      <rdfs:label xml:lang="en">IPF Level-1 (SLSTR)  </rdfs:label>
-      <rdfs:comment xml:lang="en">
+		</rdfs:comment>
+		<rdfs:subClassOf rdf:resource="&s3;ipf_level_1_2"/>
+		<drb:signature rdf:parseType="Resource">
+			<drb:nameMatch>S3[AB_]_SL_[12]_.*</drb:nameMatch>
+		</drb:signature>
+	</owl:Class>
+
+	<!-- =================================================================== -->
+	<!--                                                                     -->
+	<!--      IPF Level 1 (SLSTR)                                            -->
+	<!--                                                                     -->
+	<!-- =================================================================== -->
+
+	<owl:Class rdf:about="&s3;ipf_slstr_level_1">
+		<rdfs:label xml:lang="en">IPF Level-1 (SLSTR)  </rdfs:label>
+		<rdfs:comment xml:lang="en">
          IPF Level 1 (SLSTR).
-      </rdfs:comment>      
-      <rdfs:subClassOf rdf:resource="&s3;ipf_slstr_level_1_2"/>
-      <drb:signature rdf:parseType="Resource">
-         <drb:nameMatch>S3[AB_]_SL_1_.*</drb:nameMatch>	  	 
-      </drb:signature>
-      <img:descriptor rdf:parseType="Literal">
-         <img:collection xmlns:img="&img;">
-            <img:source>.</img:source>
-            <img:raster name="S1">
-               <img:width>S1_radiance_an.nc/root/dimensions/columns</img:width>
-               <img:height>S1_radiance_an.nc/root/dimensions/rows</img:height>
-               <img:bandNumber>1</img:bandNumber>
-               <img:data sampleModel="banded">S1_radiance_an.nc/root/dataset/S1_radiance_an/rows/columns</img:data>
-            </img:raster>
-            <img:raster name="S2">
-               <img:width>S2_radiance_an.nc/root/dimensions/columns</img:width>
-               <img:height>S2_radiance_an.nc/root/dimensions/rows</img:height>
-               <img:bandNumber>1</img:bandNumber>
-               <img:data sampleModel="banded">S2_radiance_an.nc/root/dataset/S2_radiance_an/rows/columns</img:data>
-            </img:raster>
-            <img:raster name="S3">
-               <img:width>S3_radiance_an.nc/root/dimensions/columns</img:width>
-               <img:height>S3_radiance_an.nc/root/dimensions/rows</img:height>
-               <img:bandNumber>1</img:bandNumber>
-               <img:data sampleModel="banded">S3_radiance_an.nc/root/dataset/S3_radiance_an/rows/columns</img:data>
-            </img:raster>
-            <img:raster name="SWIR_S4">
-               <img:width>S4_radiance_an.nc/root/dimensions/columns</img:width>
-               <img:height>S4_radiance_an.nc/root/dimensions/rows</img:height>
-               <img:bandNumber>1</img:bandNumber>
-               <img:data sampleModel="banded">S4_radiance_an.nc/root/dataset/S4_radiance_an/rows/columns</img:data>
-            </img:raster>
-            <img:raster name="SWIR_S5">
-               <img:width>S5_radiance_an.nc/root/dimensions/columns</img:width>
-               <img:height>S5_radiance_an.nc/root/dimensions/rows</img:height>
-               <img:bandNumber>1</img:bandNumber>
-               <img:data sampleModel="banded">S5_radiance_an.nc/root/dataset/S5_radiance_an/rows/columns</img:data>
-            </img:raster>
-            <img:raster name="SWIR_S6">
-               <img:width>S6_radiance_an.nc/root/dimensions/columns</img:width>
-               <img:height>S6_radiance_an.nc/root/dimensions/rows</img:height>
-               <img:bandNumber>1</img:bandNumber>
-               <img:data sampleModel="banded">S6_radiance_an.nc/root/dataset/S6_radiance_an/rows/columns</img:data>
-            </img:raster>
-            <img:raster name="Thermal_infra_red_S7">
-               <img:width>S7_BT_in.nc/root/dimensions/columns</img:width>
-               <img:height>S7_BT_in.nc/root/dimensions/rows</img:height>
-               <img:bandNumber>1</img:bandNumber>
-               <img:data sampleModel="banded">S7_BT_in.nc/root/dataset/S7_BT_in/rows/columns</img:data>
-            </img:raster>
-            <img:raster name="Thermal_infra_red_S8">
-               <img:width>S8_BT_in.nc/root/dimensions/columns</img:width>
-               <img:height>S8_BT_in.nc/root/dimensions/rows</img:height>
-               <img:bandNumber>1</img:bandNumber>
-               <img:data sampleModel="banded">S8_BT_in.nc/root/dataset/S8_BT_in/rows/columns</img:data>
-            </img:raster>
-            <img:raster name="Thermal_infra_red_S9">
-               <img:width>S9_BT_in.nc/root/dimensions/columns</img:width>
-               <img:height>S9_BT_in.nc/root/dimensions/rows</img:height>
-               <img:bandNumber>1</img:bandNumber>
-               <img:data sampleModel="banded">S9_BT_in.nc/root/dataset/S9_BT_in/rows/columns</img:data>
-            </img:raster>
-            <img:raster name="Fire_F1">
-               <img:width>F1_BT_in.nc/root/dimensions/columns</img:width>
-               <img:height>F1_BT_in.nc/root/dimensions/rows</img:height>
-               <img:bandNumber>1</img:bandNumber>
-               <img:data sampleModel="banded">F1_BT_in.nc/root/dataset/F1_BT_in/rows/columns</img:data>
-            </img:raster>
-            <img:raster name="Fire_F2">
-               <img:width>F2_BT_in.nc/root/dimensions/columns</img:width>
-               <img:height>F2_BT_in.nc/root/dimensions/rows</img:height>
-               <img:bandNumber>1</img:bandNumber>
-               <img:data sampleModel="banded">F2_BT_in.nc/root/dataset/F2_BT_in/rows/columns</img:data>
-            </img:raster>
-         </img:collection>
-      </img:descriptor>
-      <img:rendering rdf:parseType="Literal">
-         <img:operator name="rgb" xmlns:img="&img;">
-            <img:script language="beanshell" version="1.0">
+		</rdfs:comment>
+		<rdfs:subClassOf rdf:resource="&s3;ipf_slstr_level_1_2"/>
+		<drb:signature rdf:parseType="Resource">
+			<drb:nameMatch>S3[AB_]_SL_1_.*</drb:nameMatch>
+		</drb:signature>
+		<img:descriptor rdf:parseType="Literal">
+			<img:collection xmlns:img="&img;">
+				<img:source>.</img:source>
+				<img:raster name="S1">
+					<img:width>S1_radiance_an.nc/root/dimensions/columns</img:width>
+					<img:height>S1_radiance_an.nc/root/dimensions/rows</img:height>
+					<img:bandNumber>1</img:bandNumber>
+					<img:data sampleModel="banded">S1_radiance_an.nc/root/dataset/S1_radiance_an/rows/columns</img:data>
+				</img:raster>
+				<img:raster name="S2">
+					<img:width>S2_radiance_an.nc/root/dimensions/columns</img:width>
+					<img:height>S2_radiance_an.nc/root/dimensions/rows</img:height>
+					<img:bandNumber>1</img:bandNumber>
+					<img:data sampleModel="banded">S2_radiance_an.nc/root/dataset/S2_radiance_an/rows/columns</img:data>
+				</img:raster>
+				<img:raster name="S3">
+					<img:width>S3_radiance_an.nc/root/dimensions/columns</img:width>
+					<img:height>S3_radiance_an.nc/root/dimensions/rows</img:height>
+					<img:bandNumber>1</img:bandNumber>
+					<img:data sampleModel="banded">S3_radiance_an.nc/root/dataset/S3_radiance_an/rows/columns</img:data>
+				</img:raster>
+				<img:raster name="SWIR_S4">
+					<img:width>S4_radiance_an.nc/root/dimensions/columns</img:width>
+					<img:height>S4_radiance_an.nc/root/dimensions/rows</img:height>
+					<img:bandNumber>1</img:bandNumber>
+					<img:data sampleModel="banded">S4_radiance_an.nc/root/dataset/S4_radiance_an/rows/columns</img:data>
+				</img:raster>
+				<img:raster name="SWIR_S5">
+					<img:width>S5_radiance_an.nc/root/dimensions/columns</img:width>
+					<img:height>S5_radiance_an.nc/root/dimensions/rows</img:height>
+					<img:bandNumber>1</img:bandNumber>
+					<img:data sampleModel="banded">S5_radiance_an.nc/root/dataset/S5_radiance_an/rows/columns</img:data>
+				</img:raster>
+				<img:raster name="SWIR_S6">
+					<img:width>S6_radiance_an.nc/root/dimensions/columns</img:width>
+					<img:height>S6_radiance_an.nc/root/dimensions/rows</img:height>
+					<img:bandNumber>1</img:bandNumber>
+					<img:data sampleModel="banded">S6_radiance_an.nc/root/dataset/S6_radiance_an/rows/columns</img:data>
+				</img:raster>
+				<img:raster name="Thermal_infra_red_S7">
+					<img:width>S7_BT_in.nc/root/dimensions/columns</img:width>
+					<img:height>S7_BT_in.nc/root/dimensions/rows</img:height>
+					<img:bandNumber>1</img:bandNumber>
+					<img:data sampleModel="banded">S7_BT_in.nc/root/dataset/S7_BT_in/rows/columns</img:data>
+				</img:raster>
+				<img:raster name="Thermal_infra_red_S8">
+					<img:width>S8_BT_in.nc/root/dimensions/columns</img:width>
+					<img:height>S8_BT_in.nc/root/dimensions/rows</img:height>
+					<img:bandNumber>1</img:bandNumber>
+					<img:data sampleModel="banded">S8_BT_in.nc/root/dataset/S8_BT_in/rows/columns</img:data>
+				</img:raster>
+				<img:raster name="Thermal_infra_red_S9">
+					<img:width>S9_BT_in.nc/root/dimensions/columns</img:width>
+					<img:height>S9_BT_in.nc/root/dimensions/rows</img:height>
+					<img:bandNumber>1</img:bandNumber>
+					<img:data sampleModel="banded">S9_BT_in.nc/root/dataset/S9_BT_in/rows/columns</img:data>
+				</img:raster>
+				<img:raster name="Fire_F1">
+					<img:width>F1_BT_in.nc/root/dimensions/columns</img:width>
+					<img:height>F1_BT_in.nc/root/dimensions/rows</img:height>
+					<img:bandNumber>1</img:bandNumber>
+					<img:data sampleModel="banded">F1_BT_in.nc/root/dataset/F1_BT_in/rows/columns</img:data>
+				</img:raster>
+				<img:raster name="Fire_F2">
+					<img:width>F2_BT_in.nc/root/dimensions/columns</img:width>
+					<img:height>F2_BT_in.nc/root/dimensions/rows</img:height>
+					<img:bandNumber>1</img:bandNumber>
+					<img:data sampleModel="banded">F2_BT_in.nc/root/dataset/F2_BT_in/rows/columns</img:data>
+				</img:raster>
+			</img:collection>
+		</img:descriptor>
+		<img:rendering rdf:parseType="Literal">
+			<img:operator name="rgb" xmlns:img="&img;">
+				<img:script language="beanshell" version="1.0">
                // Use Slstr Operator to select better band to be displayed.
                pb = new ParameterBlock();
                iterator=source.getChildren().iterator();
                while (iterator.hasNext())
                   pb.addSource(iterator.next());
-                  
+
                pb.set(new fr.gael.drb.cortex.topic.sentinel3.jai.operator.
                   Common.PixelCorrection[]{
                      fr.gael.drb.cortex.topic.sentinel3.jai.operator.
@@ -197,64 +197,116 @@
                }
 
                return img;
-            </img:script>
-         </img:operator>
-      </img:rendering>
-      
-   </owl:Class>
-   
-   <!-- =================================================================== -->
-   <!--                                                                     -->
-   <!--      IPF Level 1 (SLSTR)  Browse Product                            -->
-   <!--                                                                     -->
-   <!-- =================================================================== -->
-   
-   <owl:Class rdf:about="&s3;ipf_slstr_level_1_bw">
-      <rdfs:label xml:lang="en">IPF Level-1 (SLSTR) Browse Product </rdfs:label>
-      <rdfs:comment xml:lang="en">
-         IPF Level-1 (SLSTR) Browse Product.
-      </rdfs:comment>      
-      <rdfs:subClassOf rdf:resource="&s3;ipf_slstr_level_1_2"/>
-      <drb:signature rdf:parseType="Resource">
-         <drb:nameMatch>S3[AB_]_SL_1_RBT_BW.*</drb:nameMatch>	  	 
-      </drb:signature>
-   </owl:Class>
-   
-   <!-- =================================================================== -->
-   <!--                                                                     -->
-   <!--      IPF Level 2 (SLSTR)                                            -->
-   <!--                                                                     -->
-   <!-- =================================================================== -->
-   
-   <owl:Class rdf:about="&s3;ipf_slstr_level_2">
-      <rdfs:label xml:lang="en">IPF Level-2 (SLSTR)  </rdfs:label>
-      <rdfs:comment xml:lang="en">
-         IPF Level-2 (SLSTR).
-      </rdfs:comment>      
-      <rdfs:subClassOf rdf:resource="&s3;ipf_slstr_level_1_2"/>
-      <drb:signature rdf:parseType="Resource">
-         <drb:nameMatch>S3[AB_]_SL_2_.*</drb:nameMatch>	  	 
-      </drb:signature>
-   </owl:Class>
-   
-   <!-- =================================================================== -->
-   <!--                                                                     -->
-   <!--      IPF Level 2 (SLSTR)  Browse Product                            -->
-   <!--                                                                     -->
-   <!-- =================================================================== -->
-   <!-- Note: temporary suspended management of products SL_2_WST___ and SL_2_WST_BW as indicated 
-        in Carla Santella e-mail received on 16th March 2015 -->
-   
-   <owl:Class rdf:about="&s3;ipf_slstr_level_2_bw">
-      <rdfs:label xml:lang="en">IPF Level-2 (SLSTR) Browse Product </rdfs:label>
-      <rdfs:comment xml:lang="en">
-         IPF Level-2 (SLSTR) Browse Product.
-      </rdfs:comment>      
-      <rdfs:subClassOf rdf:resource="&s3;ipf_slstr_level_1_2"/>
-      <drb:signature rdf:parseType="Resource">
-         <drb:nameMatch>S3[AB_]_SL_2_LST_BW.*</drb:nameMatch>	  	 
-      </drb:signature>
-   </owl:Class>
+				</img:script>
+			</img:operator>
+		</img:rendering>
 
-  
+	</owl:Class>
+
+	<!-- =================================================================== -->
+	<!--                                                                     -->
+	<!--      IPF Level 1 (SLSTR)  Browse Product                            -->
+	<!--                                                                     -->
+	<!-- =================================================================== -->
+
+	<owl:Class rdf:about="&s3;ipf_slstr_level_1_bw">
+		<rdfs:label xml:lang="en">IPF Level-1 (SLSTR) Browse Product </rdfs:label>
+		<rdfs:comment xml:lang="en">
+         IPF Level-1 (SLSTR) Browse Product.
+		</rdfs:comment>
+		<rdfs:subClassOf rdf:resource="&s3;ipf_slstr_level_1_2"/>
+		<drb:signature rdf:parseType="Resource">
+			<drb:nameMatch>S3[AB_]_SL_1_RBT_BW.*</drb:nameMatch>
+		</drb:signature>
+	</owl:Class>
+
+	<!-- =================================================================== -->
+	<!--                                                                     -->
+	<!--      IPF Level 2 (SLSTR)                                            -->
+	<!--                                                                     -->
+	<!-- =================================================================== -->
+
+	<owl:Class rdf:about="&s3;ipf_slstr_level_2">
+		<rdfs:label xml:lang="en">IPF Level-2 (SLSTR)  </rdfs:label>
+		<rdfs:comment xml:lang="en">
+         IPF Level-2 (SLSTR).
+		</rdfs:comment>
+		<rdfs:subClassOf rdf:resource="&s3;ipf_slstr_level_1_2"/>
+		<drb:signature rdf:parseType="Resource">
+			<drb:nameMatch>S3[AB_]_SL_2_.*</drb:nameMatch>
+		</drb:signature>
+
+		<img:descriptor rdf:parseType="Literal">
+			<img:collection xmlns:img="&img;">
+				<img:source>.</img:source>
+				<img:raster name="LST">
+					<img:width>LST_in.nc/root/dimensions/columns</img:width>
+					<img:height>LST_in.nc/root/dimensions/rows</img:height>
+					<img:bandNumber>1</img:bandNumber>
+					<img:data sampleModel="banded">LST_in.nc/root/dataset/LST/rows/columns</img:data>
+				</img:raster>
+			</img:collection>
+		</img:descriptor>
+		<img:rendering rdf:parseType="Literal">
+			<img:operator name="rgb" xmlns:img="&img;">
+				<img:script language="beanshell" version="1.0">
+                 pb = new ParameterBlock();
+                 iterator=source.getChildren().iterator();
+                 while (iterator.hasNext())
+                    pb.addSource(iterator.next());
+
+                 pb.set(new fr.gael.drb.cortex.topic.sentinel3.jai.operator.
+                    Common.PixelCorrection[]{
+                     fr.gael.drb.cortex.topic.sentinel3.jai.operator.
+                        Common.extractPixelCorrection (source, "LST_in", "LST"),
+                     }, 0);
+
+                 pb.set(fr.gael.drb.cortex.topic.sentinel3.jai.operator.
+                    QuicklookSlstrL2LRIF.extractFlags(source), 1);
+
+                 pb.set(fr.gael.drb.cortex.topic.sentinel3.jai.operator.
+                    QuicklookSlstrL2LRIF.extractExceptions(source), 2);
+
+                 img = JAI.create("QuicklookSlstrL2L",pb);
+
+                 // flip ascendinig images.
+                 if (fr.gael.drb.cortex.topic.sentinel3.jai.operator.Common.isAscending(source))
+                 {
+                    ParameterBlock transpose_pb = new ParameterBlock();
+                    transpose_pb.addSource(img);
+                    transpose_pb.add(javax.media.jai.operator.TransposeDescriptor.FLIP_VERTICAL);
+                    img = JAI.create("transpose",transpose_pb);
+
+                    transpose_pb = new ParameterBlock();
+                    transpose_pb.addSource(img);
+                    transpose_pb.add(javax.media.jai.operator.TransposeDescriptor.FLIP_HORIZONTAL);
+                    img = JAI.create("transpose",transpose_pb);
+                 }
+
+                 return img;
+				</img:script>
+			</img:operator>
+		</img:rendering>
+	</owl:Class>
+
+	<!-- =================================================================== -->
+	<!--                                                                     -->
+	<!--      IPF Level 2 (SLSTR)  Browse Product                            -->
+	<!--                                                                     -->
+	<!-- =================================================================== -->
+	<!-- Note: temporary suspended management of products SL_2_WST___ and SL_2_WST_BW as indicated
+        in Carla Santella e-mail received on 16th March 2015 -->
+
+	<owl:Class rdf:about="&s3;ipf_slstr_level_2_bw">
+		<rdfs:label xml:lang="en">IPF Level-2 (SLSTR) Browse Product </rdfs:label>
+		<rdfs:comment xml:lang="en">
+         IPF Level-2 (SLSTR) Browse Product.
+		</rdfs:comment>
+		<rdfs:subClassOf rdf:resource="&s3;ipf_slstr_level_1_2"/>
+		<drb:signature rdf:parseType="Resource">
+			<drb:nameMatch>S3[AB_]_SL_2_LST_BW.*</drb:nameMatch>
+		</drb:signature>
+	</owl:Class>
+
+
 </rdf:RDF>

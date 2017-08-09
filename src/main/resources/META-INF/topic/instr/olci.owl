@@ -148,10 +148,10 @@
                <img:data sampleModel="banded">Oa06_radiance.nc/root/dataset/Oa06_radiance/rows/columns</img:data>
             </img:raster>
              <img:raster name="blue">
-               <img:width>Oa04_radiance.nc/root/dimensions/columns</img:width>
-               <img:height>Oa04_radiance.nc/root/dimensions/rows</img:height>
+               <img:width>Oa03_radiance.nc/root/dimensions/columns</img:width>
+               <img:height>Oa03_radiance.nc/root/dimensions/rows</img:height>
                <img:bandNumber>1</img:bandNumber>
-               <img:data sampleModel="banded">Oa04_radiance.nc/root/dataset/Oa04_radiance/rows/columns</img:data>
+               <img:data sampleModel="banded">Oa03_radiance.nc/root/dataset/Oa03_radiance/rows/columns</img:data>
             </img:raster>
          </img:collection>
       </img:descriptor>
@@ -163,16 +163,16 @@
                iterator=source.getChildren().iterator();
                while (iterator.hasNext())
                   pb.addSource(iterator.next());
-                  
+
                pb.set(fr.gael.drb.cortex.topic.sentinel3.jai.operator.
                   QuicklookOlciRIF.extractDetectors(source), 0);
 
                pb.set(fr.gael.drb.cortex.topic.sentinel3.jai.operator.
                   QuicklookOlciRIF.extractSunZenithAngle(source), 1);
-                  
+
                pb.set(fr.gael.drb.cortex.topic.sentinel3.jai.operator.
                   QuicklookOlciRIF.extractSolarFlux(source), 2);
-               
+
                pb.set(new fr.gael.drb.cortex.topic.sentinel3.jai.operator.
                   Common.PixelCorrection[]{
                      fr.gael.drb.cortex.topic.sentinel3.jai.operator.
@@ -180,9 +180,9 @@
                      fr.gael.drb.cortex.topic.sentinel3.jai.operator.
                         Common.extractPixelCorrection (source, 6),
                      fr.gael.drb.cortex.topic.sentinel3.jai.operator.
-                        Common.extractPixelCorrection (source, 4)},3);
+                        Common.extractPixelCorrection (source, 3)},3);
 
-               pb.set(new int[]{10,6,4}, 4);
+               pb.set(new int[]{10,6,3}, 4);
                pb.set(new int[]{ 1,1,1}, 5);
 
                img = JAI.create("QuicklookOlci",pb);
@@ -197,52 +197,85 @@
    <!--                         IPF Level-1 (OLCI)                          -->
    <!--                                                                     -->
    <!-- =================================================================== -->
-	
+
 	<owl:Class rdf:about="&s3;ipf_olci_level_1">
       <rdfs:label xml:lang="en">IPF Level-1 (OLCI) No Calibration </rdfs:label>
       <rdfs:comment xml:lang="en">
          IPF Level-1 (OLCI) No Calibration.
-      </rdfs:comment>      
+      </rdfs:comment>
       <rdfs:subClassOf rdf:resource="&s3;ipf_olci_level_1_2_but_cal"/>
       <drb:signature rdf:parseType="Resource">
-         <drb:nameMatch>S3[AB_]_OL_1_(EFR___|ERR___|EFR_BW|ERR_BW).*</drb:nameMatch>	  	 
+         <drb:nameMatch>S3[AB_]_OL_1_(EFR___|ERR___|EFR_BW|ERR_BW).*</drb:nameMatch>
       </drb:signature>
    </owl:Class>
-   
-   
+
+
    <!-- =================================================================== -->
    <!--                                                                     -->
    <!--           IPF Level-1 (OLCI)   Browse product                       -->
    <!--                                                                     -->
    <!-- =================================================================== -->
-   
-   
+
+
    <owl:Class rdf:about="&s3;ipf_olci_level_1_bw">
       <rdfs:label xml:lang="en">IPF Level-1 (OLCI) Browse product </rdfs:label>
       <rdfs:comment xml:lang="en">
          IPF Level-1 (OLCI) Browse product.
-      </rdfs:comment>      
+      </rdfs:comment>
       <rdfs:subClassOf rdf:resource="&s3;ipf_olci_level_1_2"/>
       <drb:signature rdf:parseType="Resource">
-         <drb:nameMatch>S3[AB_]_OL_1_(EFR_BW|ERR_BW).*</drb:nameMatch>	  	 
+         <drb:nameMatch>S3[AB_]_OL_1_(EFR_BW|ERR_BW).*</drb:nameMatch>
       </drb:signature>
    </owl:Class>
-   
+
    <!-- =================================================================== -->
    <!--                                                                     -->
    <!--           IPF Level-2 (OLCI)                                        -->
    <!--                                                                     -->
    <!-- =================================================================== -->
-   
+
    <owl:Class rdf:about="&s3;ipf_olci_level_2">
       <rdfs:label xml:lang="en">IPF Level 2 (OLCI)  </rdfs:label>
       <rdfs:comment xml:lang="en">
          IPF Level 2 OLCI.
-      </rdfs:comment>      
+      </rdfs:comment>
       <rdfs:subClassOf rdf:resource="&s3;ipf_olci_level_1_2_but_cal"/>
       <drb:signature rdf:parseType="Resource">
-         <drb:nameMatch>S3[AB_]_OL_2_(WFR___|WRR___|WFR_BW|WRR_BW|LFR___|LRR___|LFR_BW|LRR_BW).*</drb:nameMatch>	  	 
+         <drb:nameMatch>S3[AB_]_OL_2_(WFR___|WRR___|WFR_BW|WRR_BW|LFR___|LRR___|LFR_BW|LRR_BW).*</drb:nameMatch>
       </drb:signature>
+
+      <img:descriptor rdf:parseType="Literal">
+           <img:collection xmlns:img="&img;">
+              <img:source>.</img:source>
+              <img:raster name="OGVI">
+                 <img:width>ogvi.nc/root/dimensions/columns</img:width>
+                 <img:height>ogvi.nc/root/dimensions/rows</img:height>
+                 <img:bandNumber>1</img:bandNumber>
+                 <img:data sampleModel="banded">ogvi.nc/root/dataset/OGVI/rows/columns</img:data>
+              </img:raster>
+           </img:collection>
+      </img:descriptor>
+      <img:rendering rdf:parseType="Literal">
+         <img:operator name="rgb" xmlns:img="&img;">
+            <img:script language="beanshell" version="1.0">
+               pb = new ParameterBlock();
+               iterator=source.getChildren().iterator();
+               while (iterator.hasNext())
+                  pb.addSource(iterator.next());
+
+               pb.set(new fr.gael.drb.cortex.topic.sentinel3.jai.operator.
+                  Common.PixelCorrection[]{
+                     fr.gael.drb.cortex.topic.sentinel3.jai.operator.
+                        Common.extractPixelCorrection (source, "ogvi", "OGVI"),
+                     }, 0);
+               pb.set(fr.gael.drb.cortex.topic.sentinel3.jai.operator.
+                        QuicklookOlciL2LRIF.extractFlags(source), 1);
+
+               img = JAI.create("QuicklookOlciL2L",pb);
+               return img;
+            </img:script>
+         </img:operator>
+      </img:rendering>
    </owl:Class>
    
    <!-- =================================================================== -->
