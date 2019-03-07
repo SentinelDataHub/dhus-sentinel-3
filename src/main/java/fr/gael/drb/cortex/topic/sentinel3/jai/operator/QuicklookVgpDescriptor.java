@@ -53,7 +53,7 @@ public class QuicklookVgpDescriptor extends OperationDescriptorImpl
 
     public QuicklookVgpDescriptor()
     {
-        super(resources, supportedModes, 4, paramNames, paramClasses,
+        super(resources, supportedModes, 1, paramNames, paramClasses,
                 null, null);
     }
 

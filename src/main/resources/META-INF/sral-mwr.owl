@@ -38,141 +38,141 @@
          xmlns:drb ="&drb;"
          xmlns:img ="&img;"
          xmlns:dhus="&dhus;"
-         xml:base  ="&s3;">           
-      
-   <owl:Ontology rdf:about="&s3;"/>           
-             
-    <rdf:Description rdf:about="&s3;ipf_sral_level_1_2">
+         xml:base  ="&s3;">
+
+   <owl:Ontology rdf:about="&s3;"/>
+
+   <rdf:Description rdf:about="&s3;ipf_sral_level_1_2">
       <dhus:metadataTypes rdf:parseType="Literal">
 
          <metadataType id="lrmpercentage"
                        name="Measurement Records in LRM Mode (%)"
                        contentType="text/plain"
                        category="product">
-           	<solrField name="lrmpercentage"
+            <solrField name="lrmpercentage"
                        type="int"/>
-         </metadataType>  
-         
+         </metadataType>
+
          <metadataType id="sarpercentage"
                        name="Measurement Records in SAR Mode (%)"
                        contentType="text/plain"
                        category="product">
-           	<solrField name="sarpercentage"
+            <solrField name="sarpercentage"
                        type="int"/>
-         </metadataType>             
-                  
+         </metadataType>
+
      </dhus:metadataTypes>
    </rdf:Description>
-    <rdf:Description rdf:about="&s3;ipf_sral_level_1_2">
-    <dhus:support/>
+   <rdf:Description rdf:about="&s3;ipf_sral_level_1_2">
+      <dhus:support/>
       <dhus:metadataExtractor  rdf:parseType="Literal">
-         <![CDATA[   
-         
-         declare namespace utils="java:fr.gael.drb.cortex.topic.sentinel3.Sentinel3Utils";                           
-                
-         <!-- SRAL Level 1 and 2 Common Metadata -->         
-                       
+         <![CDATA[
+
+         declare namespace utils="java:fr.gael.drb.cortex.topic.sentinel3.Sentinel3Utils";
+
+         <!-- SRAL Level 1 and 2 Common Metadata -->
+
          <metadata
             queryable="lrmpercentage"
             category="product" name="Measurement Records in LRM Mode (%)" type="text/plain">
             {data(xfdumanifest.xml/XFDU/metadataSection/
                 metadataObject[@ID="sralProductInformation"]/metadataWrap/xmlData/
-                sralProductInformation/lrmModePercentage)          	 
-			  }    
+                sralProductInformation/lrmModePercentage)
+            }
          </metadata>,
-         
+
          <metadata
             queryable="sarpercentage"
             category="product" name="Measurement Records in SAR Mode (%)" type="text/plain">
             {data(xfdumanifest.xml/XFDU/metadataSection/
                 metadataObject[@ID="sralProductInformation"]/metadataWrap/xmlData/
-                sralProductInformation/sarModePercentage)          	 
-			  }    
+                sralProductInformation/sarModePercentage)
+            }
          </metadata>
-  		 ]]>
-      </dhus:metadataExtractor>   
-    </rdf:Description> 
-    
-    <rdf:Description rdf:about="&s3;ipf_sral_level_1_2_no_cal">
+         ]]>
+      </dhus:metadataExtractor>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="&s3;ipf_sral_level_1_2_no_cal">
       <dhus:metadataTypes rdf:parseType="Literal">
 
          <metadataType id="landpercentage"
                        name="Measurement Records on Land (%)"
                        contentType="text/plain"
                        category="product">
-           	<solrField name="landpercentage"
+              <solrField name="landpercentage"
                        type="int"/>
-         </metadataType>  
-         
+         </metadataType>
+
          <metadataType id="closedseapercentage"
                        name="Measurement Records on Closed Sea (%)"
                        contentType="text/plain"
                        category="product">
-           	<solrField name="closedseapercentage"
+              <solrField name="closedseapercentage"
                        type="int"/>
          </metadataType>
-         
+
          <metadataType id="continentalicepercentage"
                        name="Measurement Records on Continental Ice (%)"
                        contentType="text/plain"
                        category="product">
-           	<solrField name="continentalicepercentage"
+              <solrField name="continentalicepercentage"
                        type="int"/>
-         </metadataType>  
-         
+         </metadataType>
+
          <metadataType id="openseapercentage"
                        name="Measurement Records on Open Ocean (%)"
                        contentType="text/plain"
                        category="product">
-           	<solrField name="openseapercentage"
+              <solrField name="openseapercentage"
                        type="int"/>
-         </metadataType>             
-                  
+         </metadataType>
+
      </dhus:metadataTypes>
    </rdf:Description>
-    <rdf:Description rdf:about="&s3;ipf_sral_level_1_2_no_cal">
-    <dhus:support/>
+   <rdf:Description rdf:about="&s3;ipf_sral_level_1_2_no_cal">
+      <dhus:support/>
       <dhus:metadataExtractor  rdf:parseType="Literal">
-         <![CDATA[   
+         <![CDATA[
          <!-- SRAL Level 1 and 2 (No Calibration) Common Metadata -->
-                                                      
+
          <metadata
             queryable="landpercentage"
             category="product" name="Measurement Records on Land (%)" type="text/plain">
             {data(xfdumanifest.xml/XFDU/metadataSection/
                 metadataObject[@ID="sralProductInformation"]/metadataWrap/xmlData/
-                sralProductInformation/landPercentage)          	 
-			  }    
+                sralProductInformation/landPercentage)
+            }
          </metadata>,
-         
+
          <metadata
             queryable="closedseapercentage"
             category="product" name="Measurement Records on Closed Sea (%)" type="text/plain">
             {data(xfdumanifest.xml/XFDU/metadataSection/
                 metadataObject[@ID="sralProductInformation"]/metadataWrap/xmlData/
-                sralProductInformation/closedSeaPercentage)          	 
-			  }    
+                sralProductInformation/closedSeaPercentage)
+            }
          </metadata>,
-         
+
          <metadata
             queryable="continentalicepercentage"
             category="product" name="Measurement Records on Continental Ice (%)" type="text/plain">
             {data(xfdumanifest.xml/XFDU/metadataSection/
                 metadataObject[@ID="sralProductInformation"]/metadataWrap/xmlData/
-                sralProductInformation/continentalIcePercentage)          	 
-			  }    
+                sralProductInformation/continentalIcePercentage)
+            }
          </metadata>,
-         
+
          <metadata
             queryable="openseapercentage"
             category="product" name="Measurement Records on Open Ocean (%)" type="text/plain">
             {data(xfdumanifest.xml/XFDU/metadataSection/
                 metadataObject[@ID="sralProductInformation"]/metadataWrap/xmlData/
-                sralProductInformation/openOceanPercentage)          	 
-			  }    
+                sralProductInformation/openOceanPercentage)
+            }
          </metadata>
-  		 ]]>
-      </dhus:metadataExtractor>   
+         ]]>
+      </dhus:metadataExtractor>
     </rdf:Description>
-        
+
 </rdf:RDF>

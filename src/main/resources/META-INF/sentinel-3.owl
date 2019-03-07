@@ -67,7 +67,7 @@
          <metadataType id="filename"
                        name="Filename"
                        contentType="text/plain"
-                       category="">
+                       category="summary">
             <solrField name="filename"
                        type="string"
                        required="true"/>
@@ -118,7 +118,7 @@
          </metadataType>
          
          <metadataType id="creationdate"
-                       name="Creation date"
+                       name="Creation Date"
                        contentType="text/date+iso8601"
                        category="product">
            	<solrField name="creationdate"
@@ -182,7 +182,7 @@
 
 	<!-- FILENAME -->
          <metadata queryable="filename"
-            category=""
+            category="summary"
             name="Filename"
             type="text/plain">
             {
@@ -271,7 +271,7 @@
          </metadata>,
          
          <metadata queryable="adfqualitycheck" 
-            category="quality"
+            category="processing"
             name="ADF Quality Check"
             type="text/plain">
             {data(xfdumanifest.xml/XFDU/metadataSection/
@@ -296,7 +296,7 @@
          <metadataType id="filename"
                        name="Filename"
                        contentType="text/plain"
-                       category="">
+                       category="summary">
             <solrField name="filename"
                        type="string"
                        required="true"/>
@@ -449,7 +449,7 @@
          </metadataType>
          
          <metadataType id="creationdate"
-                       name="Creation date"
+                       name="Creation Date"
                        contentType="text/date+iso8601"
                        category="product">
            	<solrField name="creationdate"
@@ -761,7 +761,7 @@
 
 	<!-- FILENAME -->
          <metadata queryable="filename"
-            category=""
+            category="summary"
             name="Filename"
             type="text/plain">
             {
@@ -1103,7 +1103,7 @@
          </metadata>,
          
          <metadata queryable="lastrelpassdirection" 
-            category=""
+            category="product"
             name="Relative pass direction (stop)"
             type="text/plain">
             {data(xfdumanifest.xml/XFDU/metadataSection/
@@ -1214,7 +1214,7 @@
          <!-- QUALITY INFO -->
          
          <metadata queryable="onlinequalitycheck" 
-            category="quality"
+            category="processing"
             name="Online Quality Check"
             type="text/plain">
             {data(xfdumanifest.xml/XFDU/metadataSection/

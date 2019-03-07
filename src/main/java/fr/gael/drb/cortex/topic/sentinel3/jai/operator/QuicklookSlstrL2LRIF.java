@@ -43,36 +43,31 @@ public class QuicklookSlstrL2LRIF implements RenderedImageFactory
         if(pc == null)
             throw new IllegalArgumentException("Pixel corrections can't be null");
 
-        for (int i = 0; i < height; i++)
-            for (int j = 0; j < width; j++)
-                if (raw.getData().getSample(j, i, 0) != pc.nodata )
-                    lst[j][i] = raw.getData().getSample(j, i, 0) * pc.scale + pc.offset;
-
-
         BufferedImage out = new BufferedImage(lst.length, lst[0].length, BufferedImage.TYPE_3BYTE_BGR);
         TreeMap<Float, Color> colorMap = Common.loadColormap("lst.cpd",
-                273,
+                263,
                 321);
 
         for (int i = 0; i < height; i++)
             for (int j = 0; j < width; j++)
             {
                 if (raw.getData().getSample(j, i, 0) != pc.nodata)
-                    out.setRGB(j, i, Common.colorMap((float) lst[j][i], colorMap).getRGB());
+                {
+                    Color t = Common.colorMap((float) raw.getData().getSample(j, i, 0) * pc.scale + pc.offset, colorMap);
+                    out.getRaster().setPixel(j, i, new int[]{t.getRed(), t.getGreen(), t.getBlue()});
+                }
                 else if (isUnfilled(flags[i][j]))
-                    out.setRGB(j, i, new Color(0, 0, 0).getRGB());
+                    out.getRaster().setPixel(j, i, new int[]{0, 0, 0});
                 else if (isSnowIce(flags[i][j]))
-                    out.setRGB(j, i, new Color(185, 253, 255).getRGB());
+                    out.getRaster().setPixel(j, i, new int[]{185, 253, 255});
                 else if (isWater(flags[i][j]))
-                    out.setRGB(j, i, new Color(52, 58, 144).getRGB());
+                    out.getRaster().setPixel(j, i, new int[]{0, 0, 0});
                 else if (lstUnderflow(exceptions[i][j]))
-                    out.setRGB(j, i, new Color(0, 0, 171).getRGB());
+                    out.getRaster().setPixel(j, i, new int[]{0, 0, 171});
                 else if (lstOverflow(exceptions[i][j]))
-                    out.setRGB(j, i, new Color(170, 0, 0).getRGB());
-                else if (isCloud(flags[i][j]))
-                    out.setRGB(j, i, new Color(255, 255, 255).getRGB());
+                    out.getRaster().setPixel(j, i, new int[]{170, 0, 0});
                 else
-                    out.setRGB(j, i, Color.WHITE.getRGB());
+                    out.getRaster().setPixel(j, i, new int[]{255, 255, 255});
 
             }
 

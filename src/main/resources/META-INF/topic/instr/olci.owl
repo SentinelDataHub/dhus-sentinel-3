@@ -266,7 +266,7 @@
                pb.set(new fr.gael.drb.cortex.topic.sentinel3.jai.operator.
                   Common.PixelCorrection[]{
                      fr.gael.drb.cortex.topic.sentinel3.jai.operator.
-                        Common.extractPixelCorrection (source, "ogvi", "OGVI"),
+                        Common.extractPixelCorrectionUByte (source, "ogvi", "OGVI"),
                      }, 0);
                pb.set(fr.gael.drb.cortex.topic.sentinel3.jai.operator.
                         QuicklookOlciL2LRIF.extractFlags(source), 1);

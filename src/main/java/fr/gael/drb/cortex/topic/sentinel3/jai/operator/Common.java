@@ -26,6 +26,7 @@ import fr.gael.drb.DrbSequence;
 import fr.gael.drb.query.Query;
 import fr.gael.drb.value.Float;
 import fr.gael.drb.value.Short;
+import fr.gael.drb.value.UnsignedByte;
 import fr.gael.drb.value.Value;
 import fr.gael.drbx.image.DrbCollectionImage;
 import fr.gael.drbx.image.DrbImage;
@@ -95,17 +96,43 @@ public class Common
       return extractPixelCorrection (node, name, variableName);
    }
 
+   public static PixelCorrection extractPixelCorrectionUByte (
+           DrbCollectionImage sources, String name, String variableName)
+   {
+      DrbImage image = sources.getChildren().iterator().next();
+      DrbNode node = ((DrbNode)(image.getItemSource()));
+
+      return extractPixelCorrectionUByte (node, name, variableName);
+   }
+
    public static PixelCorrection extractPixelCorrection (
            DrbNode product_node, String name)
    {
       return extractPixelCorrection(product_node, name, name);
    }
 
-   public static PixelCorrection extractPixelCorrection (
-           DrbNode product_node, String name, String variableName)
+   public static PixelCorrection extractPixelCorrection(DrbNode product_node, String name, String variableName)
    {
-      String path = "*[name()='" + name  + ".nc']/root/variables/*[name()='" +
-              variableName + "']/attributes/";
+       String path = "*[name()='" + name  + ".nc']/root/variables/*[name()='" + variableName + "']/attributes/";
+       return _extractPixelCorrection(product_node, path);
+   }
+
+   public static PixelCorrection extractMatchingPixelCorrection(DrbCollectionImage sources, String docName, String nodeName)
+   {
+      DrbImage image = sources.getChildren().iterator().next();
+      DrbNode node = ((DrbNode)(image.getItemSource()));
+
+      return extractMatchingPixelCorrection(node, docName, nodeName);
+   }
+
+   public static PixelCorrection extractMatchingPixelCorrection(DrbNode product_node, String docName, String nodeName)
+   {
+      String path = "*[fn:matches(name(), '" + docName  + "')]/root/variables/*[fn:matches(name(), '" + nodeName + "')]/attributes/";
+      return _extractPixelCorrection(product_node, path);
+   }
+
+   private static PixelCorrection _extractPixelCorrection(DrbNode product_node, String path)
+   {
       try
       {
          Query query_pixel_scale  = new Query(path + "scale_factor");
@@ -146,6 +173,61 @@ public class Common
          float scale  = ((Float)vscale).floatValue();
          float offset = ((Float)voffset).floatValue();
          short nodata = ((Short)vnodata).shortValue();
+
+         return new PixelCorrection(scale, offset, nodata);
+      }
+      catch (Exception e)
+      {
+         LOGGER.error("Pixel correction extraction failure.", e);
+      }
+      return null;
+   }
+
+   public static PixelCorrection extractPixelCorrectionUByte (
+           DrbNode product_node, String name, String variableName)
+   {
+      String path = "*[name()='" + name  + ".nc']/root/variables/*[name()='" +
+              variableName + "']/attributes/";
+      try
+      {
+         Query query_pixel_scale  = new Query(path + "scale_factor");
+         Query query_pixel_offset = new Query(path + "add_offset");
+         Query query_nodata = new Query(path + "_FillValue");
+
+         Value vscale = null;
+         try
+         {
+            vscale = query_pixel_scale.evaluate(product_node).getItem(0).
+                    getValue().convertTo(Value.FLOAT_ID);
+         }
+         catch (Exception e)
+         {
+            vscale = new Float(1);
+         }
+         Value voffset =null;
+         try
+         {
+            voffset = query_pixel_offset.evaluate(product_node).getItem(0).
+                    getValue().convertTo(Value.FLOAT_ID);
+         }
+         catch (Exception e)
+         {
+            voffset = new Float(0);
+         }
+         Value vnodata=null;
+         try
+         {
+            vnodata = query_nodata.evaluate(product_node).getItem(0).
+                    getValue().convertTo(Value.UNSIGNED_BYTE_ID);
+         }
+         catch (Exception e)
+         {
+            vnodata = new UnsignedByte(0);
+         }
+
+         float scale  = ((Float)vscale).floatValue();
+         float offset = ((Float)voffset).floatValue();
+         short nodata = ((UnsignedByte)vnodata).shortValue();
 
          return new PixelCorrection(scale, offset, nodata);
       }

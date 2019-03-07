@@ -38,9 +38,9 @@
          xmlns:drb ="&drb;"
          xmlns:img ="&img;"
          xmlns:dhus="&dhus;"
-         xml:base  ="&s3;">           
-      
-   <owl:Ontology rdf:about="&s3;"/>           
+         xml:base  ="&s3;">
+
+   <owl:Ontology rdf:about="&s3;"/>
    <rdf:Description rdf:about="&s3;ipf_level_1_2">
       <dhus:support/>
       <dhus:metadataTypes rdf:parseType="Literal">
@@ -49,9 +49,9 @@
                        name="Product level"
                        contentType="text/plain"
                        category="product">
-           	<solrField name="productlevel"
+            <solrField name="productlevel"
                        type="text_general"/>
-         </metadataType> 
+         </metadataType>
 
          <metadataType id="GMLfootprint"
                        name="Footprint"
@@ -67,13 +67,13 @@
                        category="product">
             <solrField name="footprint"
                        type="location_rpt"/>
-         </metadataType> 
+         </metadataType>
 
       </dhus:metadataTypes>
 
-   
+
       <dhus:metadataExtractor  rdf:parseType="Literal">
-         <![CDATA[                                 
+         <![CDATA[
          declare namespace utils="java:fr.gael.drb.cortex.topic.sentinel3.Sentinel3Utils";
          declare function local:footprint() as xs:string*
          {
@@ -83,8 +83,7 @@
          };
 
          <!-- PRODUCT LEVEL -->
-         <metadata
-            queryable="productlevel"
+         <metadata queryable="productlevel"
             category="product" name="Product level" type="text/plain">
             {
                let $level := fn:substring (name(),8,1)
@@ -92,7 +91,7 @@
                      fn:concat("L",$level)
             }
          </metadata>,
-         
+
          <metadata
             queryable="GMLfootprint"
             category="product"
@@ -111,7 +110,7 @@
                </gml:outerBoundaryIs>
             </gml:Polygon>
          </metadata>,
-   
+
          <!-- JTS FOOTPRINT -->
          <metadata
             queryable="footprint"
@@ -121,8 +120,8 @@
             {
                concat ("POLYGON ((",utils:points2JTS(local:footprint()),"))")
             }
-         </metadata>                     
-  		 ]]>
-      </dhus:metadataExtractor>   
-    </rdf:Description> 
+         </metadata>
+         ]]>
+      </dhus:metadataExtractor>
+   </rdf:Description>
 </rdf:RDF>

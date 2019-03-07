@@ -104,13 +104,43 @@
 
 	<owl:Class rdf:about="&s3;ipf_syn_level_2_vgs_vgk">
 		<rdfs:label xml:lang="en">IPF Level-2 (SYN) VGT-S and VGK</rdfs:label>
-		<rdfs:comment xml:lang="en">
-         IPF Level 2 (SYNERGY) VGT-S and VGK Common Metadata.
-		</rdfs:comment>
+		<rdfs:comment xml:lang="en">IPF Level 2 (SYNERGY) VGT-S and VGK Common Metadata.</rdfs:comment>
 		<rdfs:subClassOf rdf:resource="&s3;ipf_syn_level_2"/>
 		<drb:signature rdf:parseType="Resource">
 			<drb:nameMatch>S3[AB_]_SY_2_(VGK___|V10___|VG1___|V10_BW|VG1_BW).*</drb:nameMatch>
 		</drb:signature>
+		<img:descriptor rdf:parseType="Literal">
+			<img:collection
+				xmlns:img="&img;">
+				<img:source>.</img:source>
+				<img:raster name="NDVI">
+					<img:width>NDVI.nc/root/dimensions/longitude</img:width>
+					<img:height>NDVI.nc/root/dimensions/latitude</img:height>
+					<img:bandNumber>1</img:bandNumber>
+					<img:data sampleModel="banded">NDVI.nc/root/dataset/NDVI/latitude/longitude</img:data>
+				</img:raster>
+			</img:collection>
+		</img:descriptor>
+		<img:rendering rdf:parseType="Literal">
+			<img:operator name="rgb"
+				xmlns:img="&img;">
+				<img:script language="beanshell" version="1.0">
+	                				pb = new ParameterBlock();
+	              				iterator=source.getChildren().iterator();
+	               			 	while (iterator.hasNext())
+	                				pb.addSource(iterator.next());
+	                
+	               				 pb.set(new fr.gael.drb.cortex.topic.sentinel3.jai.operator.
+	               					 Common.PixelCorrection[]{
+	                						fr.gael.drb.cortex.topic.sentinel3.jai.operator.
+	               						 Common.extractPixelCorrection (source, "NDVI")}  , 0);
+	                
+	                				pb.set(fr.gael.drb.cortex.topic.sentinel3.jai.operator.QuicklookVgpRIF.extractFlags(source), 1);
+	                				img = JAI.create("QuicklookVgp",pb);
+	                				return img;
+	            			</img:script>
+			</img:operator>
+		</img:rendering>
 	</owl:Class>
 
 	<!-- =================================================================== -->
@@ -167,10 +197,10 @@
 			<img:collection xmlns:img="&img;">
 				<img:source>.</img:source>
 				<img:raster name="red">
-					<img:width>Syn18_reflectance.nc/root/dimensions/columns</img:width>
-					<img:height>Syn18_reflectance.nc/root/dimensions/rows</img:height>
+					<img:width>*[fn:matches(name(), 'Syn(_Oa)?18_reflectance.nc')]/root/dimensions/columns</img:width>
+					<img:height>*[fn:matches(name(), 'Syn(_Oa)?18_reflectance.nc')]/root/dimensions/rows</img:height>
 					<img:bandNumber>1</img:bandNumber>
-					<img:data sampleModel="banded">Syn18_reflectance.nc/root/dataset/SDR_18/rows/columns</img:data>
+					<img:data sampleModel="banded">*[fn:matches(name(), 'Syn(_Oa)?18_reflectance.nc')]/root/dataset/*[fn:matches(name(), 'SDR_(Oa)?18')]/rows/columns</img:data>
 				</img:raster>
 			</img:collection>
 		</img:descriptor>
@@ -185,7 +215,7 @@
                  pb.set(new fr.gael.drb.cortex.topic.sentinel3.jai.operator.
                     Common.PixelCorrection[]{
                         fr.gael.drb.cortex.topic.sentinel3.jai.operator.
-                         Common.extractPixelCorrection (source, "Syn18_reflectance", "SDR_18")}
+                         Common.extractMatchingPixelCorrection(source, "Syn(_Oa)?18_reflectance.nc", "SDR_(Oa)?18")}
                     ,0);
 
                  pb.set(fr.gael.drb.cortex.topic.sentinel3.jai.operator.
@@ -213,62 +243,6 @@
 		<drb:signature rdf:parseType="Resource">
 			<drb:nameMatch>S3[AB_]_SY_2_(VGP___|VGP_BW).*</drb:nameMatch>
 		</drb:signature>
-<!-- DISABLED as products are huge and performances very bad
-		<img:descriptor rdf:parseType="Literal">
-			<img:collection xmlns:img="&img;">
-				<img:source>.</img:source>
-				<img:raster name="b3">
-					<img:width>B3.nc/root/dimensions/longitude</img:width>
-					<img:height>B3.nc/root/dimensions/latitude</img:height>
-					<img:bandNumber>1</img:bandNumber>
-					<img:data sampleModel="banded">B3.nc/root/dataset/B3/latitude/longitude</img:data>
-				</img:raster>
-                <img:raster name="b2">
-                    <img:width>B2.nc/root/dimensions/longitude</img:width>
-                    <img:height>B2.nc/root/dimensions/latitude</img:height>
-                    <img:bandNumber>1</img:bandNumber>
-                    <img:data sampleModel="banded">B2.nc/root/dataset/B2/latitude/longitude</img:data>
-                </img:raster>
-                <img:raster name="b0">
-                    <img:width>B0.nc/root/dimensions/longitude</img:width>
-                    <img:height>B0.nc/root/dimensions/latitude</img:height>
-                    <img:bandNumber>1</img:bandNumber>
-                    <img:data sampleModel="banded">B0.nc/root/dataset/B0/latitude/longitude</img:data>
-                </img:raster>
-                <img:raster name="MIR">
-                    <img:width>MIR.nc/root/dimensions/longitude</img:width>
-                    <img:height>MIR.nc/root/dimensions/latitude</img:height>
-                    <img:bandNumber>1</img:bandNumber>
-                    <img:data sampleModel="banded">MIR.nc/root/dataset/MIR/latitude/longitude</img:data>
-                </img:raster>
-			</img:collection>
-		</img:descriptor>
-		<img:rendering rdf:parseType="Literal">
-			<img:operator name="rgb" xmlns:img="&img;">
-				<img:script language="beanshell" version="1.0">
-                   pb = new ParameterBlock();
-                   iterator=source.getChildren().iterator();
-                   while (iterator.hasNext())
-                      pb.addSource(iterator.next());
-
-                   pb.set(new fr.gael.drb.cortex.topic.sentinel3.jai.operator.
-                      Common.PixelCorrection[]{
-                          fr.gael.drb.cortex.topic.sentinel3.jai.operator.
-                             Common.extractPixelCorrection (source, "B3"),
-                          fr.gael.drb.cortex.topic.sentinel3.jai.operator.
-                             Common.extractPixelCorrection (source, "B2"),
-                          fr.gael.drb.cortex.topic.sentinel3.jai.operator.
-                             Common.extractPixelCorrection (source, "B0"),
-                          fr.gael.drb.cortex.topic.sentinel3.jai.operator.
-                             Common.extractPixelCorrection (source, "MIR"),
-                          }
-                      ,0);
-
-                   img = JAI.create("QuicklookVgp",pb);
-                   return img;
-				</img:script>
-			</img:operator>
-		</img:rendering> -->
 	</owl:Class>
 
 	<!-- =================================================================== -->
