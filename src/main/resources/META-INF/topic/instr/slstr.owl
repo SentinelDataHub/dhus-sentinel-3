@@ -133,10 +133,10 @@
 					<img:data sampleModel="banded">S9_BT_in.nc/root/dataset/S9_BT_in/rows/columns</img:data>
 				</img:raster>
 				<img:raster name="Fire_F1">
-					<img:width>F1_BT_in.nc/root/dimensions/columns</img:width>
-					<img:height>F1_BT_in.nc/root/dimensions/rows</img:height>
+					<img:width>*[fn:matches(name(), 'F1_BT_[if]n.nc')]/root/dimensions/columns</img:width>
+					<img:height>*[fn:matches(name(), 'F1_BT_[if]n.nc')]/root/dimensions/rows</img:height>
 					<img:bandNumber>1</img:bandNumber>
-					<img:data sampleModel="banded">F1_BT_in.nc/root/dataset/F1_BT_in/rows/columns</img:data>
+					<img:data sampleModel="banded">*[fn:matches(name(), 'F1_BT_[if]n.nc')]/root/dataset/*[fn:matches(name(), 'F1_BT_[if]n')]/rows/columns</img:data>
 				</img:raster>
 				<img:raster name="Fire_F2">
 					<img:width>F2_BT_in.nc/root/dimensions/columns</img:width>
@@ -308,5 +308,68 @@
 		</drb:signature>
 	</owl:Class>
 
+	<!-- =================================================================== -->
+	<!--                                                                     -->
+	<!--      IPF Level 2 (SLSTR)  FRP Product	                             -->
+	<!--                                                                     -->
+	<!-- =================================================================== -->
+	<owl:Class rdf:about="&s3;ipf_slstr_level_2_frp">
+		<rdfs:label xml:lang="en">IPF Level-2 (SLSTR) FRP</rdfs:label>
+		<rdfs:comment xml:lang="en">
+         IPF Level-2 (SLSTR).
+		</rdfs:comment>
+		<rdfs:subClassOf rdf:resource="&s3;ipf_slstr_level_1_2"/>
+		<drb:signature rdf:parseType="Resource">
+		<drb:nameMatch>S3[AB_]_SL_2_FRP.*</drb:nameMatch>
+		</drb:signature>
+		
+		<img:descriptor rdf:parseType="Literal">
+			<img:collection xmlns:img="&img;">
+				<img:source>.</img:source>
+                <img:raster name="frp">
+                	<img:width>FRP_in.nc/root/dimensions/columns</img:width>
+					<img:height>FRP_in.nc/root/dimensions/rows</img:height>
+					<img:bandNumber>1</img:bandNumber>
+					<img:data sampleModel="banded">FRP_in.nc/root/dataset/flags/rows/columns</img:data>
+              	</img:raster>
+			</img:collection>
+		</img:descriptor>
+		
+		<img:rendering rdf:parseType="Literal">
+        	<img:operator name="rgb" xmlns:img="&img;">
+            <img:script language="beanshell" version="1.0">
+            	pb = new ParameterBlock();
+                iterator=source.getChildren().iterator();
+				while (iterator.hasNext())
+				{
+					pb.addSource(iterator.next());
+				}
+				
+				pb.set(fr.gael.drb.cortex.topic.sentinel3.jai.operator.
+					QuicklookSlstrFRPRIF.extractFlags(source), 0);
+				pb.set(fr.gael.drb.cortex.topic.sentinel3.jai.operator.
+					QuicklookSlstrFRPRIF.extractFires(source), 1);
+					
+				img = JAI.create("QuicklookSlstrFRP",pb);
 
+				// flip ascendinig images.
+				if (fr.gael.drb.cortex.topic.sentinel3.jai.operator.Common.isAscending(source))
+				{
+					ParameterBlock transpose_pb = new ParameterBlock();
+					transpose_pb.addSource(img);
+					transpose_pb.add(javax.media.jai.operator.TransposeDescriptor.FLIP_VERTICAL);
+					img = JAI.create("transpose",transpose_pb);
+ 
+					transpose_pb = new ParameterBlock();
+					transpose_pb.addSource(img);
+					transpose_pb.add(javax.media.jai.operator.TransposeDescriptor.FLIP_HORIZONTAL);
+					img = JAI.create("transpose",transpose_pb);
+				}
+				return img;
+
+            </img:script>
+         </img:operator>
+      </img:rendering>
+	</owl:Class>
+	
 </rdf:RDF>

@@ -131,7 +131,7 @@ public class QuicklookOlciRIF implements RenderedImageFactory
                   double ln = radiance / solar_flux[band_number - 1][detector];
                   double reflectance = Math.PI * ln / Math.cos(Math.toRadians(angle));
 
-                  out[j][i] = Math.min(1., reflectance);
+                  out[j][i] = Math.max(0, Math.min(1., reflectance));
                }
                catch (Exception e)
                {

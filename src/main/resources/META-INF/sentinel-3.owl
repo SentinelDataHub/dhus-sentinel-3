@@ -957,14 +957,9 @@
             category="product"
             name="Orbit number (start)"
             type="text/integer">            
-            {if (xfdumanifest.xml/XFDU/metadataSection/metadataObject[fn:matches(@ID,".+OrbitReference")]/metadataWrap/xmlData/orbitReference/orbitNumber[@type="start"]) then 
-                 data(xfdumanifest.xml/XFDU/metadataSection/
+            {data(xfdumanifest.xml/XFDU/metadataSection/
                 metadataObject[fn:matches(@ID,".+OrbitReference")]/
-                metadataWrap/xmlData/orbitReference/orbitNumber[@type="start"]) 
-              else 
-               data(xfdumanifest.xml/XFDU/metadataSection/
-                metadataObject[fn:matches(@ID,".+OrbitReference")]/
-                metadataWrap/xmlData/orbitReference/orbitNumber)}
+                metadataWrap/xmlData/orbitReference/orbitNumber[@type="start"])}
          </metadata>,
          
          <metadata queryable="lastorbitnumber"
@@ -980,18 +975,9 @@
             category="product"
             name="Orbit Direction (start)"
             type="text/plain">            
-            {let $node:= xfdumanifest.xml/XFDU/metadataSection/
-            metadataObject[fn:matches(@ID,".+OrbitReference")]/
-            metadataWrap/xmlData/orbitReference/orbitNumber
-          return
-          if ($node[@type="start"]) then 
-              data(xfdumanifest.xml/XFDU/metadataSection/
-            metadataObject[fn:matches(@ID,".+OrbitReference")]/
-            metadataWrap/xmlData/orbitReference/orbitNumber[@type="start"]/@groundTrackDirection) 
-          else 
-           data(xfdumanifest.xml/XFDU/metadataSection/
-            metadataObject[fn:matches(@ID,".+OrbitReference")]/
-            metadataWrap/xmlData/orbitReference/orbitNumber/@groundTrackDirection)}
+            {data(xfdumanifest.xml/XFDU/metadataSection/
+                metadataObject[fn:matches(@ID,".+OrbitReference")]/
+                metadataWrap/xmlData/orbitReference/orbitNumber[@type="start"]/@groundTrackDirection)}
          </metadata>,
          
          <metadata queryable="lastorbitdirection"
@@ -1007,18 +993,9 @@
             category="product"
             name="Relative orbit (start)"
             type="text/plain">            
-            {let $node:= xfdumanifest.xml/XFDU/metadataSection/
-	            metadataObject[fn:matches(@ID,".+OrbitReference")]/
-	            metadataWrap/xmlData/orbitReference/relativeOrbitNumber
-	          return
-	          if ($node[@type="start"]) then 
-	              data(xfdumanifest.xml/XFDU/metadataSection/
-	            metadataObject[fn:matches(@ID,".+OrbitReference")]/
-	            metadataWrap/xmlData/orbitReference/relativeOrbitNumber[@type="start"]) 
-	          else 
-	           data(xfdumanifest.xml/XFDU/metadataSection/
-	            metadataObject[fn:matches(@ID,".+OrbitReference")]/
-	            metadataWrap/xmlData/orbitReference/relativeOrbitNumber)}
+            {data(xfdumanifest.xml/XFDU/metadataSection/
+	              metadataObject[fn:matches(@ID,".+OrbitReference")]/
+	              metadataWrap/xmlData/orbitReference/relativeOrbitNumber[@type="start"])}
          </metadata>,
          
          <metadata queryable="lastrelativeorbitnumber" 
@@ -1034,18 +1011,9 @@
             category="product"
             name="Relative Orbit Direction (start)"
             type="text/plain">            
-            {let $node:= xfdumanifest.xml/XFDU/metadataSection/
-	            metadataObject[fn:matches(@ID,".+OrbitReference")]/
-	            metadataWrap/xmlData/orbitReference/relativeOrbitNumber
-	          return
-	          if ($node[@type="start"]) then 
-	              data(xfdumanifest.xml/XFDU/metadataSection/
-	            metadataObject[fn:matches(@ID,".+OrbitReference")]/
-	            metadataWrap/xmlData/orbitReference/relativeOrbitNumber[@type="start"]/@groundTrackDirection) 
-	          else 
-	           data(xfdumanifest.xml/XFDU/metadataSection/
-	            metadataObject[fn:matches(@ID,".+OrbitReference")]/
-	            metadataWrap/xmlData/orbitReference/relativeOrbitNumber/@groundTrackDirection)}
+            {data(xfdumanifest.xml/XFDU/metadataSection/
+	              metadataObject[fn:matches(@ID,".+OrbitReference")]/
+	              metadataWrap/xmlData/orbitReference/relativeOrbitNumber[@type="start"]/@groundTrackDirection)}
          </metadata>,
          
          <metadata queryable="lastrelorbitdirection"
@@ -1061,18 +1029,9 @@
             category="product"
             name="Relative pass (start)"
             type="text/plain">            
-            {let $node:= xfdumanifest.xml/XFDU/metadataSection/
-	            metadataObject[fn:matches(@ID,".+OrbitReference")]/
-	            metadataWrap/xmlData/orbitReference/relativePassNumber
-	          return
-	          if ($node[@type="start"]) then 
-	              data(xfdumanifest.xml/XFDU/metadataSection/
-	            metadataObject[fn:matches(@ID,".+OrbitReference")]/
-	            metadataWrap/xmlData/orbitReference/relativePassNumber[@type="start"]) 
-	          else 
-	           data(xfdumanifest.xml/XFDU/metadataSection/
-	            metadataObject[fn:matches(@ID,".+OrbitReference")]/
-	            metadataWrap/xmlData/orbitReference/relativePassNumber)}
+            {data(xfdumanifest.xml/XFDU/metadataSection/
+	              metadataObject[fn:matches(@ID,".+OrbitReference")]/
+	              metadataWrap/xmlData/orbitReference/relativePassNumber[@type="start"])}
          </metadata>,
          
          <metadata queryable="lastrelpassnumber" 
@@ -1088,18 +1047,9 @@
             category="product"
             name="Relative pass direction (start)"
             type="text/plain">            
-            {let $node:= xfdumanifest.xml/XFDU/metadataSection/
-	            metadataObject[fn:matches(@ID,".+OrbitReference")]/
-	            metadataWrap/xmlData/orbitReference/relativePassNumber
-	          return
-	          if ($node[@type="start"]) then 
-	              data(xfdumanifest.xml/XFDU/metadataSection/
-	            metadataObject[fn:matches(@ID,".+OrbitReference")]/
-	            metadataWrap/xmlData/orbitReference/relativePassNumber[@type="start"]/@groundTrackDirection) 
-	          else 
-	           data(xfdumanifest.xml/XFDU/metadataSection/
-	            metadataObject[fn:matches(@ID,".+OrbitReference")]/
-	            metadataWrap/xmlData/orbitReference/relativePassNumber/@groundTrackDirection)}
+            {data(xfdumanifest.xml/XFDU/metadataSection/
+	              metadataObject[fn:matches(@ID,".+OrbitReference")]/
+	              metadataWrap/xmlData/orbitReference/relativePassNumber[@type="start"]/@groundTrackDirection)}
          </metadata>,
          
          <metadata queryable="lastrelpassdirection" 
@@ -1115,18 +1065,9 @@
             category="product"
             name="Pass (start)"
             type="text/plain">            
-            {let $node:= xfdumanifest.xml/XFDU/metadataSection/
-	            metadataObject[fn:matches(@ID,".+OrbitReference")]/
-	            metadataWrap/xmlData/orbitReference/passNumber
-	          return
-	          if ($node[@type="start"]) then 
-	              data(xfdumanifest.xml/XFDU/metadataSection/
-	            metadataObject[fn:matches(@ID,".+OrbitReference")]/
-	            metadataWrap/xmlData/orbitReference/passNumber[@type="start"]) 
-	          else 
-	           data(xfdumanifest.xml/XFDU/metadataSection/
-	            metadataObject[fn:matches(@ID,".+OrbitReference")]/
-	            metadataWrap/xmlData/orbitReference/passNumber)}
+            {data(xfdumanifest.xml/XFDU/metadataSection/
+	              metadataObject[fn:matches(@ID,".+OrbitReference")]/
+	              metadataWrap/xmlData/orbitReference/passNumber[@type="start"])}
          </metadata>,
          
          <metadata queryable="lastpassnumber" 
@@ -1142,18 +1083,9 @@
             category="product"
             name="Pass direction (start)"
             type="text/plain">            
-            {let $node:= xfdumanifest.xml/XFDU/metadataSection/
-	            metadataObject[fn:matches(@ID,".+OrbitReference")]/
-	            metadataWrap/xmlData/orbitReference/passNumber
-	          return
-	          if ($node[@type="start"]) then 
-	              data(xfdumanifest.xml/XFDU/metadataSection/
-	            metadataObject[fn:matches(@ID,".+OrbitReference")]/
-	            metadataWrap/xmlData/orbitReference/passNumber[@type="start"]/@groundTrackDirection) 
-	          else 
-	           data(xfdumanifest.xml/XFDU/metadataSection/
-	            metadataObject[fn:matches(@ID,".+OrbitReference")]/
-	            metadataWrap/xmlData/orbitReference/passNumber/@groundTrackDirection)}
+            {data(xfdumanifest.xml/XFDU/metadataSection/
+	              metadataObject[fn:matches(@ID,".+OrbitReference")]/
+	              metadataWrap/xmlData/orbitReference/passNumber[@type="start"]/@groundTrackDirection)}
          </metadata>,
          
          <metadata queryable="lastpassdirection" 

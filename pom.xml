@@ -11,7 +11,7 @@
    <groupId>eu.serco.xmf.drb</groupId>
    <artifactId>dhus-addon-sentinel-3</artifactId>
    <packaging>jar</packaging>
-   <version>1.0.20-osf</version>
+   <version>1.0.26-osf</version>
 
    <name>DHuS - Sentinel-3 addon</name>
 
@@ -41,7 +41,7 @@
       <dependency>
          <groupId>fr.gael.drb</groupId>
          <artifactId>drbx-impl-netcdf</artifactId>
-         <version>1.0.24</version>
+         <version>1.0.28</version>
       </dependency>
 
       <dependency>
@@ -123,7 +123,7 @@
 <!-- repository https://copernicus.serco.eu/repository/nexus/content/repositories/releases
      used to proxy gael's resources requires credentials
      Using alternative source repository. -->
-         <url>https://repository.gael.fr/nexus/content/groups/public</url>
+         <url>https://repository.gael-systems.com/repository/public</url>
       </repository>
    </repositories>
 
