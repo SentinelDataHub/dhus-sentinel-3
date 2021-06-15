@@ -121,11 +121,11 @@
                        name="Creation Date"
                        contentType="text/date+iso8601"
                        category="product">
-           	<solrField name="creationdate"
+               <solrField name="creationdate"
                        type="date"/>
          </metadataType>
 
-		 <metadataType id="size"
+                <metadataType id="size"
                        name="Size"
                        contentType="text/plain"
                        category="summary">
@@ -670,6 +670,14 @@
                        category="">
          </metadataType>
    	  
+         <metadataType id="nbFire"
+                       name="Number of fire"
+                       contentType="text/integer"
+                       category="product">
+            <solrField name="nbfire"
+                       type="int"/>
+         </metadataType>
+                  
      </dhus:metadataTypes>
    </rdf:Description>
    <rdf:Description rdf:about="&s3;product">
@@ -1152,7 +1160,17 @@
             {data(xfdumanifest.xml/XFDU/metadataSection/
                 metadataObject[fn:matches(@ID,".+QualityInformation")]/
                 metadataWrap/xmlData/qualityInformation/extension/productQuality/onlineQualityCheck)}
+         </metadata>,                                           
+
+         <metadata queryable="nbfire" 
+            category="product"
+            name="Number of fire"
+            type="text/integer">
+            {data(xfdumanifest.xml/XFDU/metadataSection/
+                metadataObject[fn:matches(@ID,"slstrProductInformation")]/
+                metadataWrap/xmlData/slstrProductInformation/classificationSummary/nbFire/@*[name()="value"])}
          </metadata>                                           
+
       ]]>
       </dhus:metadataExtractor>
    </rdf:Description>
