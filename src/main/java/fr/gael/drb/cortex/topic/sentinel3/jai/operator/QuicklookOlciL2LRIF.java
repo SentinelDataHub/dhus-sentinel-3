@@ -25,9 +25,9 @@ public class QuicklookOlciL2LRIF implements RenderedImageFactory
     private static final Logger LOGGER = Logger.getLogger(QuicklookOlciL2LRIF.class);
 
     /**
-     * it uses the OGVI index plus mask to fill in empty areas
-     * ogvi index is mapped using a color map
-     * @param param the OGVI index
+     * it uses the GIFAPAR index plus mask to fill in empty areas
+     * gifapar index is mapped using a color map
+     * @param param the GIFAPAR index
      * @param hints Optionally contains destination image layout.
      */
     @Override
@@ -42,7 +42,8 @@ public class QuicklookOlciL2LRIF implements RenderedImageFactory
         int width = raw.getData().getWidth();
         int height = raw.getData().getHeight();
 
-        double[][] ogvi = new double[width][height];
+        // named gifapar but also includes ogvi
+        double[][] gifapar = new double[width][height];
 
         // sanity checks on input data
         if(pc == null)
@@ -51,9 +52,9 @@ public class QuicklookOlciL2LRIF implements RenderedImageFactory
         for (int i = 0; i < height; i++)
             for (int j = 0; j < width; j++)
                 if (raw.getData().getSample(j, i, 0) != pc.nodata )
-                    ogvi[j][i] = raw.getData().getSample(j, i, 0) * pc.scale + pc.offset;
+                    gifapar[j][i] = raw.getData().getSample(j, i, 0) * pc.scale + pc.offset;
 
-        BufferedImage out = new BufferedImage(ogvi.length, ogvi[0].length, BufferedImage.TYPE_3BYTE_BGR);
+        BufferedImage out = new BufferedImage(gifapar.length, gifapar[0].length, BufferedImage.TYPE_3BYTE_BGR);
         TreeMap<Float, Color> colorMap = Common.loadColormap("ndvi.cpd",
                 -0.1,
                 1);
@@ -69,7 +70,7 @@ public class QuicklookOlciL2LRIF implements RenderedImageFactory
                 else if (isWater(flags[i][j]))
                     out.setRGB(j, i, new Color(52, 58, 144).getRGB());
                 else if (raw.getData().getSample(j, i, 0) != pc.nodata)
-                    out.setRGB(j, i, Common.colorMap((float) ogvi[j][i], colorMap).getRGB());
+                    out.setRGB(j, i, Common.colorMap((float) gifapar[j][i], colorMap).getRGB());
                 else
                     out.setRGB(j, i, Color.WHITE.getRGB());
             }

@@ -41,16 +41,17 @@
          xml:base  ="&s3;">
          
    <owl:Ontology rdf:about="&dhus;">
-        <rdfs:label xml:lang="en">Data Hub Service (DHuS) ontology setup for sentinel-3</rdfs:label>         
-        <owl:imports rdf:resource="file:META-INF/level-0.owl"/>  
-        <owl:imports rdf:resource="file:META-INF/level-1-2.owl"/>    
+        <rdfs:label xml:lang="en">Data Hub Service (DHuS) ontology setup for sentinel-3</rdfs:label>
+        <owl:imports rdf:resource="file:META-INF/auxiliary.owl"/>
+        <owl:imports rdf:resource="file:META-INF/level-0.owl"/>
+        <owl:imports rdf:resource="file:META-INF/level-1-2.owl"/>
         <owl:imports rdf:resource="file:META-INF/olci.owl"/>
         <owl:imports rdf:resource="file:META-INF/slstr.owl"/>
-        <owl:imports rdf:resource="file:META-INF/synergy.owl"/>  
-        <owl:imports rdf:resource="file:META-INF/sral-mwr.owl"/>             
-   </owl:Ontology>         
+        <owl:imports rdf:resource="file:META-INF/synergy.owl"/>
+        <owl:imports rdf:resource="file:META-INF/sral-mwr.owl"/>
+   </owl:Ontology>
          
-   <owl:Ontology rdf:about="&s3;"/>           
+   <owl:Ontology rdf:about="&s3;"/>
    
    <rdf:Description rdf:about="&s3;aux_product">
       <dhus:metadataTypes rdf:parseType="Literal">
@@ -63,7 +64,7 @@
                        type="string"
                        required="true"/>
          </metadataType>
-         
+
          <metadataType id="filename"
                        name="Filename"
                        contentType="text/plain"
@@ -72,7 +73,7 @@
                        type="string"
                        required="true"/>
          </metadataType>
-         
+
          <metadataType id="platformName"
                        name="Satellite name"
                        contentType="text/plain"
@@ -80,19 +81,19 @@
             <solrField name="platformname"
                        type="text_general"/>
          </metadataType>
-         
+
          <metadataType id="satellite"
                        name="Satellite"
                        contentType="text/plain"
                        category="summary">
-         </metadataType> 
-         
+         </metadataType>
+
          <metadataType id="platformNumber"
                        name="Satellite number"
                        contentType="text/plain"
                        category="platform">
          </metadataType>
-         
+
          <metadataType id="beginPosition"
                        name="Validity start"
                        contentType="text/date+iso8601"
@@ -108,7 +109,7 @@
             <solrField name="endposition"
                        type="tdate"/>
          </metadataType>
-         
+
          <metadataType id="productType"
                        name="Product type"
                        contentType="text/plain"
@@ -116,7 +117,7 @@
             <solrField name="producttype"
                        type="text_general"/>
          </metadataType>
-         
+
          <metadataType id="creationdate"
                        name="Creation Date"
                        contentType="text/date+iso8601"
@@ -132,7 +133,7 @@
             <solrField name="size"
                        type="string"/>
          </metadataType>
-         
+
          <metadataType id="adfqualitycheck"
                        name="ADF Quality Check"
                        contentType="text/plain"
@@ -140,39 +141,41 @@
             <solrField name="adfqualitycheck"
                        type="string"/>
          </metadataType>
-                  
+
      </dhus:metadataTypes>
    </rdf:Description>
+
    <rdf:Description rdf:about="&s3;aux_product">
-   <dhus:support/>
-   <dhus:identifier rdf:parseType="Literal">
-	  <![CDATA[
+      <dhus:support/>
+      <dhus:identifier rdf:parseType="Literal">
+         <![CDATA[
          fn:tokenize(name (.), '\.')[1]
-      ]]>
-	</dhus:identifier>
+         ]]>
+      </dhus:identifier>
       <dhus:metadataExtractor  rdf:parseType="Literal"> 
-	<![CDATA[ 
-	declare namespace utils="java:fr.gael.drb.cortex.topic.sentinel3.Sentinel3Utils";
-	declare variable $validitystart as xs:string := data(xfdumanifest.xml/XFDU/metadataSection/
+         <![CDATA[ 
+         declare namespace utils="java:fr.gael.drb.cortex.topic.sentinel3.Sentinel3Utils";
+         declare variable $validitystart as xs:string := data(xfdumanifest.xml/XFDU/metadataSection/
                 metadataObject[@ID="generalProductInformation"]/metadataWrap/xmlData/
                 generalProductInformation/validityStartTime);
-    declare variable $validitystop as xs:string := data(xfdumanifest.xml/XFDU/metadataSection/
+          declare variable $validitystop as xs:string := data(xfdumanifest.xml/XFDU/metadataSection/
                 metadataObject[@ID="generalProductInformation"]/metadataWrap/xmlData/
                 generalProductInformation/validityStopTime);
-    declare variable $product_type as xs:string :=fn:data(xfdumanifest.xml/XFDU/metadataSection/
+          declare variable $product_type as xs:string :=fn:data(xfdumanifest.xml/XFDU/metadataSection/
                 metadataObject[@ID="generalProductInformation"]/metadataWrap/xmlData/
                 generalProductInformation/fileType); 
-    declare function local:computeSizes ($path, $base as item()*) as item()*
-     {
-        for $child in $path/*
-        return
-           if ($child/@directory)
-           then
-              local:computeSizes ($child, base)
-           else
-              data($child/@size), $base
-     }; 
-	<!-- FORMAT -->
+          declare function local:computeSizes ($path, $base as item()*) as item()*
+           {
+              for $child in $path/*
+              return
+                 if ($child/@directory)
+                 then
+                    local:computeSizes ($child, base)
+                 else
+                    data($child/@size), $base
+           };
+
+         <!-- FORMAT -->
          <metadata queryable="format"
              category="product"
              name="Format"
@@ -180,7 +183,7 @@
              SAFE
          </metadata>,
 
-	<!-- FILENAME -->
+         <!-- FILENAME -->
          <metadata queryable="filename"
             category="summary"
             name="Filename"
@@ -189,7 +192,8 @@
                name()
             }
          </metadata>,	
-    	<!-- SATELLITE NAME -->
+
+         <!-- SATELLITE NAME -->
          <metadata
             queryable="platformname"
             category="platform" name="Satellite name" type="text/plain">
@@ -200,23 +204,20 @@
             Sentinel-3
          </metadata>,                                             
 
-		 <!-- SATELLITE NUMBER -->
+         <!-- SATELLITE NUMBER -->
          <metadata category="platform" name="Satellite number" type="text/plain">
             {data(xfdumanifest.xml/XFDU/metadataSection/
                 metadataObject[@ID="generalProductInformation"]/metadataWrap/xmlData/
                 generalProductInformation/number)}                
          </metadata>,
-		<metadata queryable="beginposition"
-            category="product"
-            name="Validity start"
-            type="text/date+iso8601">
+
+         <metadata queryable="beginposition" category="product" name="Validity start" type="text/date+iso8601">
             {if (fn:string-length($validitystart)=27) then $validitystart else
              drb:Iso8601DateFormatter(
-                  $validitystart, "yyyyMMdd'T'hhmmss")
-              
-             }
+                  $validitystart, "yyyyMMdd'T'hhmmss")}
         </metadata>,
-		<metadata queryable="endposition"
+
+         <metadata queryable="endposition"
             category="product"
             name="Validity stop"
             type="text/date+iso8601">
@@ -680,13 +681,14 @@
                   
      </dhus:metadataTypes>
    </rdf:Description>
+
    <rdf:Description rdf:about="&s3;product">
-   <dhus:support/>
-	   <dhus:identifier rdf:parseType="Literal">
-		    <![CDATA[
-	         fn:tokenize(name (.), '\.')[1]
-	      ]]>
-		</dhus:identifier>
+      <dhus:support/>
+      <dhus:identifier rdf:parseType="Literal">
+         <![CDATA[
+         fn:tokenize(name (.), '\.')[1]
+         ]]>
+      </dhus:identifier>
       <dhus:metadataExtractor  rdf:parseType="Literal">
          <![CDATA[
          declare namespace utils="java:fr.gael.drb.cortex.topic.sentinel3.Sentinel3Utils";     	                      
@@ -1128,7 +1130,7 @@
                 metadataObject[@ID="processing"]/
                 metadataWrap/xmlData/processing/@outputLevel)}
          </metadata>,                  
-         
+
          <metadata queryable="procfacilityname" 
             category="processing"
             name="Processing Facility Name"
@@ -1136,9 +1138,8 @@
             {data(xfdumanifest.xml/XFDU/metadataSection/
                 metadataObject[@ID="processing"]/metadataWrap/xmlData/processing/facility/@name)}
          </metadata>, 
-         
+
          <!--PROCESSING INFO FOR COMMISSIONING ONLY BEGIN -->
-         
          <metadata queryable="procfacilityorg" 
             category="processing"
             name="Processing Facility Organization"
@@ -1146,13 +1147,8 @@
             {data(xfdumanifest.xml/XFDU/metadataSection/
                 metadataObject[@ID="processing"]/metadataWrap/xmlData/processing/facility/@organisation)}
          </metadata>,
-                  
-         <!--PROCESSING INFO FOR COMMISSIONING ONLY END -->
-         
-            
-         
+
          <!-- QUALITY INFO -->
-         
          <metadata queryable="onlinequalitycheck" 
             category="processing"
             name="Online Quality Check"
@@ -1160,17 +1156,25 @@
             {data(xfdumanifest.xml/XFDU/metadataSection/
                 metadataObject[fn:matches(@ID,".+QualityInformation")]/
                 metadataWrap/xmlData/qualityInformation/extension/productQuality/onlineQualityCheck)}
-         </metadata>,                                           
+         </metadata>,
 
-         <metadata queryable="nbfire" 
-            category="product"
-            name="Number of fire"
-            type="text/integer">
-            {data(xfdumanifest.xml/XFDU/metadataSection/
-                metadataObject[fn:matches(@ID,"slstrProductInformation")]/
-                metadataWrap/xmlData/slstrProductInformation/classificationSummary/nbFire/@*[name()="value"])}
-         </metadata>                                           
-
+         <metadata queryable="nbfire" category="product" name="Number of fire" type="text/integer">
+            {
+               let $VAR_classificationSummary :=
+                  xfdumanifest.xml/XFDU/metadataSection/metadataObject[fn:matches(@ID,"slstrProductInformation")]/
+                  metadataWrap/xmlData/slstrProductInformation/classificationSummary
+               return
+                  if ($VAR_classificationSummary/nbFire)
+                  then fn:data($VAR_classificationSummary/nbFire/@*[name()="value"])
+                  else
+                     let $VAR_nbFire_in := xs:int(fn:data($VAR_classificationSummary/nbFire_in/@*[name()="value"]))
+                     let $VAR_nbFire_an := xs:int(fn:data($VAR_classificationSummary/nbFire_an/@*[name()="value"]))
+                     return
+                        if ($VAR_nbFire_in > $VAR_nbFire_an)
+                        then $VAR_nbFire_in
+                        else $VAR_nbFire_an
+            }
+         </metadata>
       ]]>
       </dhus:metadataExtractor>
    </rdf:Description>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<!--
+  Data HUb Service (DHuS) - For Space data distribution.
+  Copyright (C) 2021 European Space Agency (ESA)
+  Copyright (C) 2021 GAEL Systems
+  Copyright (C) 2021 Serco Spa
+
+  This file is part of DHuS software sources.
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+-->
+
+<!DOCTYPE rdf:RDF [
+   <!ENTITY rdf  "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+   <!ENTITY owl  "http://www.w3.org/2002/07/owl#">
+   <!ENTITY s3   "http://www.esa.int/s3#">
+   <!ENTITY drb  "http://www.gael.fr/drb#">
+   <!ENTITY jpeg "http://www.gael.fr/drb/jpeg#">
+]>
+<rdf:RDF xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+         xmlns:drb="&drb;"
+         xmlns:jpeg="&jpeg;"
+         xmlns:s3="&s3;"
+         xml:base="&s3;">
+
+   <owl:Ontology rdf:about="&s3;">
+      <rdfs:label xml:lang="en">Sentinel-3 - Auxiliary products Ontology</rdfs:label>
+   </owl:Ontology>
+
+   <!-- ================================================================== -->
+   <!-- Sentinel-3 Auxiliary EOF abstract class                            -->
+   <!-- WARN this class is not a subclass of 'Sentinel-3 Product'          -->
+   <!--                                   or 'Sentinel-3 Auxiliary Product'-->
+   <!-- ================================================================== -->
+
+   <!-- ================================================ -->
+   <!-- Sentinel-3 POD Abstract class                    -->
+   <!-- ================================================ -->
+
+   <owl:Class rdf:about="&s3;auxiliaryEofPod">
+      <rdfs:label xml:lang="en">Sentinel-3 EOF Precise Orbit Determination (POD) Auxiliary Product</rdfs:label>
+      <rdfs:comment xml:lang="en">
+         Generic class for POD products.
+      </rdfs:comment>
+      <rdfs:subClassOf rdf:resource="&drb;item"/>
+      <drb:signature rdf:parseType="Resource">
+         <drb:nameMatch>S3._(...._AUX_(RESORB|PREORB|MOEORB|POEORB|PRCPTF)_|SR___ROE_AX).*EOF</drb:nameMatch>
+      </drb:signature>
+      <drb:implementationIdentifier>xml</drb:implementationIdentifier>
+   </owl:Class>
+
+   <!-- ================================================ -->
+   <!-- Sentinel-3 AUX_POEORB                            -->
+   <!-- ================================================ -->
+
+   <!-- Example S3B_OPER_AUX_POEORB_POD__20181101T081009_V20181006T215942_20181007T235942_DGNS.EOF -->
+   <owl:Class rdf:about="&s3;auxiliaryEofPodPoeorb">
+      <rdfs:label xml:lang="en">Sentinel-3 EOF Precise Orbit Ephemerides Orbit File Auxiliary Product</rdfs:label>
+      <rdfs:comment xml:lang="en">
+         This file contains the Precise Orbit Ephemerides (POE) Restituted
+         Orbit State Vectors (OSV) based on the orbit determination performed
+         by the POD Service. The OSVs refer to the CoG of the satellite and
+         are expressed in Earth-fixed Coordinate Frame.
+      </rdfs:comment>
+      <rdfs:subClassOf rdf:resource="&s3;auxiliaryEofPod"/>
+      <drb:signature rdf:parseType="Resource">
+         <drb:nameMatch>S3(A|B)_...._AUX_POEORB_.*</drb:nameMatch>
+      </drb:signature>
+   </owl:Class>
+
+   <!-- ================================================ -->
+   <!-- Sentinel-3 AUX_MOEORB                            -->
+   <!-- ================================================ -->
+
+   <!-- Example S3A_OPER_AUX_MOEORB_POD__20181113T081223_V20181111T215942_20181112T235942_DGNS.EOF -->
+   <owl:Class rdf:about="&s3;auxiliaryEofPodMoeorb">
+      <rdfs:label xml:lang="en">Sentinel-3 EOF Medium Orbit Ephemerides Auxiliary Product</rdfs:label>
+      <rdfs:comment xml:lang="en">
+         This file contains the Medium Orbit Ephemerides (MOE), corresponding
+         to the Preliminary Restituted Orbit State Vectors (OSV) based on the
+         orbit determination performed by the POD Service Centre. The Orbit
+         State Vectors refer to the CoG of the satellite and are expressed in
+         Earth-fixed Coordinate Frame. The file also contains quality indicator
+         parameters.
+      </rdfs:comment>
+      <rdfs:subClassOf rdf:resource="&s3;auxiliaryEofPod"/>
+      <drb:signature rdf:parseType="Resource">
+         <drb:nameMatch>S3(A|B)_...._AUX_MOEORB_.*</drb:nameMatch>
+      </drb:signature>
+   </owl:Class>
+
+   <!-- ================================================ -->
+   <!-- Sentinel-3 AUX_PRCPTF                            -->
+   <!-- ================================================ -->
+
+   <!-- Example S3A_OPER_AUX_PRCPTF_POD__20181113T071050_V20181018T215942_20181019T235942.EOF -->
+   <owl:Class rdf:about="&s3;auxiliaryEofPodPrcptf">
+      <rdfs:label xml:lang="en">Sentinel-3 EOF Precise Platform Data Auxiliary Product</rdfs:label>
+      <rdfs:comment xml:lang="en">
+         Two files are foreseen to be generated with different timeliness:
+         1. Preliminary Platform file (AUX_PRLPTF);
+         2. Precise Platform file (AUX_PRCPTF).
+         Both files contain information on:
+         * the nadir projection of the distance between the altimeter antenna
+         centre of phase and the satellite centre of gravity (m);
+         * the platform derived off nadir angles pitch, roll and yaw (degrees);
+         The files also contain quality indicator parameters.
+      </rdfs:comment>
+      <rdfs:subClassOf rdf:resource="&s3;auxiliaryEofPod"/>
+      <drb:signature rdf:parseType="Resource">
+         <drb:nameMatch>S3(A|B)_...._AUX_PRCPTF_.*</drb:nameMatch>
+      </drb:signature>
+   </owl:Class>
+
+   <!-- ================================================ -->
+   <!-- Sentinel-3 SR___ROE_AX                           -->
+   <!-- ================================================ -->
+
+   <!-- Example S3A_SR___ROE_AX_20181113T020209_20181113T034619_20181113T041228___________________POD_O_NR____.EOF -->
+   <owl:Class rdf:about="&s3;auxiliaryEofRoe">
+      <rdfs:label xml:lang="en">Sentinel-3 EOF NRT Restituted Orbit State Vectors Auxiliary Product</rdfs:label>
+      <rdfs:comment xml:lang="en">
+         This file contains the NRT Restituted Orbit State Vectors (OSV) based
+         on the orbit determination performed by the S-3 NRT POD IPF Facility.
+         The Orbit State Vectors refer to the CoG of the satellite and are
+         expressed in Earth-fixed Coordinate Frame.
+      </rdfs:comment>
+      <rdfs:subClassOf rdf:resource="&s3;auxiliaryEofPod"/>
+      <drb:signature rdf:parseType="Resource">
+         <drb:nameMatch>S3(A|B)_SR___ROE_AX_.*</drb:nameMatch>
+      </drb:signature>
+   </owl:Class>
+
+</rdf:RDF>

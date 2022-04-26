@@ -1,0 +1,389 @@
+<?xml version="1.0"?>
+<!--
+  Data HUb Service (DHuS) - For Space data distribution.
+  Copyright (C) 2021 European Space Agency (ESA)
+  Copyright (C) 2021 GAEL Systems
+  Copyright (C) 2021 Serco Spa
+
+  This file is part of DHuS software sources.
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<!DOCTYPE rdf:RDF [
+        <!ENTITY rdf  "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+        <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+        <!ENTITY owl  "http://www.w3.org/2002/07/owl#">
+        <!ENTITY s3   "http://www.esa.int/s3#">
+        <!ENTITY drb  "http://www.gael.fr/drb#">
+        <!ENTITY dhus "http://www.gael.fr/dhus#">
+        <!ENTITY img  "http://www.gael.fr/drb/image#">
+        ]>
+
+<rdf:RDF xmlns:owl ="&owl;"
+         xmlns:rdf ="&rdf;"
+         xmlns:rdfs="&rdfs;"
+         xmlns:s3  ="&s3;"
+         xmlns:drb ="&drb;"
+         xmlns:img ="&img;"
+         xmlns:dhus="&dhus;"
+         xml:base  ="&s3;">           
+      
+   <owl:Ontology rdf:about="&s3;"/>           
+
+   <!-- AUXILIARY EOF POD -->
+   <rdf:Description rdf:about="&s3;auxiliaryEofPod">
+      <dhus:metadataTypes rdf:parseType="Literal">
+
+         <metadataType id="satellite"
+                       name="Satellite"
+                       contentType="text/plain"
+                       category="summary">
+         </metadataType>
+
+         <metadataType id="date"
+                       name="Date"
+                       contentType="text/date+iso8601"
+                       category="summary">
+         </metadataType>
+
+         <metadataType id="generationDate"
+                       name="Generation date"
+                       contentType="text/date+iso8601"
+                       category="product">
+            <solrField name="generationdate"
+                       type="tdate"/>
+         </metadataType>
+
+         <metadataType id="format"
+                       name="Format"
+                       contentType="text/plain"
+                       category="product">
+            <solrField name="format"
+                       type="string"
+                       required="true"/>
+         </metadataType>
+
+         <metadataType id="size"
+                       name="Size"
+                       contentType="text/plain"
+                       category="summary">
+            <solrField name="size"
+                       type="string"/>
+         </metadataType>
+
+         <metadataType id="beginPosition"
+                       name="Validity start"
+                       contentType="text/date+iso8601"
+                       category="product">
+            <solrField name="beginposition"
+                       type="tdate"/>
+         </metadataType>
+
+         <metadataType id="endPosition"
+                       name="Validity stop"
+                       contentType="text/date+iso8601"
+                       category="product">
+            <solrField name="endposition"
+                       type="tdate"/>
+         </metadataType>
+
+         <metadataType id="platformName"
+                       name="Platform name"
+                       contentType="text/plain"
+                       category="platform">
+            <solrField name="platformname"
+                       type="text_general"/>
+         </metadataType>
+
+         <metadataType id="platformShortName"
+                       name="Platform short name"
+                       contentType="text/plain"
+                       category="platform">
+            <solrField name="platformshortname"
+                       type="text_general"/>
+         </metadataType>
+
+         <metadataType id="platformNumber"
+                       name="Satellite number"
+                       contentType="text/plain"
+                       category="platform">
+            <solrField name="platformnumber"
+                       type="string"/>
+         </metadataType>
+
+         <metadataType id="platformSerialIdentifier"
+                       name="Platform serial identifier"
+                       contentType="text/plain"
+                       category="platform">
+            <solrField name="platformserialidentifier"
+                       type="text_general"/>
+         </metadataType>
+
+         <metadataType id="filename"
+                       name="Filename"
+                       contentType="text/plain"
+                       category="summary">
+            <solrField name="filename"
+                       type="string"
+                       required="true"/>
+         </metadataType>
+
+         <metadataType id="productType"
+                       name="Product type"
+                       contentType="text/plain"
+                       category="product">
+            <solrField name="producttype"
+                       type="text_general"/>
+         </metadataType>
+
+         <metadataType id="fileDescription"
+                       name="File description"
+                       contentType="text/plain"
+                       category="product">
+            <solrField name="filedescription"
+                       type="string"/>
+         </metadataType>
+
+         <metadataType id="fileClass"
+                       name="File class"
+                       contentType="text/plain"
+                       category="product">
+            <solrField name="fileclass"
+                       type="string"/>
+         </metadataType>
+
+         <metadataType id="creator"
+                       name="Creator"
+                       contentType="text/plain"
+                       category="product">
+            <solrField name="creator"
+                       type="string"/>
+         </metadataType>
+
+         <metadataType id="creatorVersion"
+                       name="Creator version"
+                       contentType="text/plain"
+                       category="product">
+            <solrField name="creatorversion"
+                       type="string"/>
+         </metadataType>
+
+      </dhus:metadataTypes>
+   </rdf:Description>
+
+   <!-- AUXILIARY EOF POD -->
+   <rdf:Description rdf:about="&s3;auxiliaryEofPod">
+      <dhus:support/>
+      <dhus:identifier rdf:parseType="Literal">
+      <![CDATA[
+         fn:tokenize(name (.), '\.')[1]
+      ]]>
+      </dhus:identifier>
+
+      <dhus:metadataExtractor rdf:parseType="Literal">
+      <![CDATA[
+         <!-- ============================================================== -->
+         <!-- FUNCTIONS                                                      -->
+         <!-- ============================================================== -->
+
+         declare function local:computeSizes ($path, $base as item()*) as item()*
+         {
+            let $product := .
+            return fn:data($product/@size)
+         };
+
+         declare function local:roundHalfDown($arg, $precision) as xs:double*
+         {
+            xs:integer((xs:double($arg)*math:power(10, $precision))) div math:power(10, $precision)
+         };
+
+         declare function local:computedateTime ($inputDate as xs:string?) as xs:string
+         {
+            let $input := $inputDate
+            return concat(substring($input, 5, 19), ".000Z")
+         };
+
+         <!-- ============================================================== -->
+         <!-- VARIABLES                                                      -->
+         <!-- ============================================================== -->
+
+         let $eofFile := .
+
+         let $name := name($eofFile)
+
+         let $VAR_Fixed_Header := $eofFile/Earth_Explorer_File/Earth_Explorer_Header/Fixed_Header
+
+         let $VAR_missionName := data($VAR_Fixed_Header/Mission)
+
+         let $VAR_platformName := "Sentinel-3"
+
+         let $VAR_beginPosition :=
+            local:computedateTime(data($VAR_Fixed_Header/Validity_Period/Validity_Start))
+
+         let $VAR_endPosition :=
+            local:computedateTime(data($VAR_Fixed_Header/Validity_Period/Validity_Stop))
+
+         return
+         (
+
+         <!-- ============================================================== -->
+         <!-- EXTRACTIONS                                                    -->
+         <!-- ============================================================== -->
+
+         <!-- Indexed metadata -->
+
+         <!-- SATELLITE -->
+         <metadata category="summary" name="Satellite" type="text/plain">
+         { $VAR_platformName }
+         </metadata>,
+
+         <!-- DATE -->
+         <metadata category="summary" name="Date" type="text/date+iso8601">
+         { $VAR_beginPosition }
+         </metadata>,
+
+         <!-- GENERATION DATE -->
+         <metadata queryable="generationdate" name="Generation date"
+                   category="product" type="text/date+iso8601">
+         { local:computedateTime(data($VAR_Fixed_Header/Source/Creation_Date)) }
+         </metadata>,
+
+         <!-- FORMAT -->
+         <metadata queryable="format" name="Format"
+                   category="product" type="text/plain">
+            EOF
+         </metadata>,
+
+         <!-- SIZE -->
+         <metadata queryable="size" name="Size"
+                   category="summary" type="text/plain">
+         {
+            let $size := xs:double(fn:sum(local:computeSizes(., ())))
+            let $kilo := 1024
+            let $mega := xs:integer($kilo * 1024)
+            let $giga := xs:integer($mega * 1024)
+            let $tera := xs:integer($giga * 1024)
+            let $kilo_size := local:roundHalfDown(($size div $kilo), 2)
+            let $mega_size := local:roundHalfDown(($size div $mega), 2)
+            let $giga_size := local:roundHalfDown(($size div $giga), 2)
+            let $tera_size := local:roundHalfDown(($size div $tera), 2)
+            return
+               if ($size < 1024)
+               then concat ($size, " bytes")
+               else
+                  if (($size div $kilo) < 1024)
+                  then concat ($kilo_size, " KB")
+                  else
+                     if (($size div $mega) < 1024)
+                     then concat ($mega_size, " MB")
+                     else
+                        if (($size div $giga) < 1024)
+                        then concat ($giga_size, " GB")
+                        else concat ($tera_size, " TB")
+         }
+         </metadata>,
+
+         <!-- SENSING START -->
+         <metadata queryable="beginposition" name="Validity start"
+                   category="product" type="text/date+iso8601">
+         { $VAR_beginPosition }
+         </metadata>,
+
+         <!-- SENSING STOP -->
+         <metadata queryable="endposition" name="Validity stop"
+                   category="product" type="text/date+iso8601">
+         { $VAR_endPosition }
+         </metadata>,
+
+         <!-- PLATFORM NAME -->
+         <metadata queryable="platformname" name="Platform name"
+                   category="platform" type="text/plain">
+         { $VAR_platformName }
+         </metadata>,
+
+         <!-- PLATFORM SHORT NAME -->
+         <metadata queryable="platformshortname" name="Platform short name"
+                   category="platform" type="text/plain">
+         S3
+         </metadata>,
+
+         <!-- PLATFORM NUMBER -->
+         <metadata queryable="satellitenumber" name="Satellite number"
+                   category="platform" type="text/plain">
+         {
+            if (fn:matches($VAR_missionName, "Sentinel-3A"))
+            then "A"
+            else
+               if (fn:matches($VAR_missionName, "Sentinel-3B"))
+               then "B"
+               else ()
+         }
+         </metadata>,
+
+         <!-- PLATFORM SERIAL IDENTIFIER -->
+         <metadata queryable="platformserialidentifier" name="Platform serial identifier"
+                   category="platform" type="text/plain">
+         {
+            if ($VAR_missionName = "Sentinel-3A")
+            then "3A"
+            else
+               if ($VAR_missionName = "Sentinel-3B")
+               then "3B"
+               else "UNKNOWN"
+         }
+         </metadata>,
+
+         <!-- FILENAME -->
+         <metadata queryable="filename" name="Filename"
+                   category="summary" type="text/plain">
+         { $name }
+         </metadata>,
+
+         <!-- PRODUCT TYPE -->
+         <metadata queryable="producttype" name="Product type"
+                   category="product" type="text/plain">
+         { data($VAR_Fixed_Header/File_Type) }
+         </metadata>,
+
+         <!-- FILE DESCRIPTION -->
+         <metadata queryable="filedescription" name="File description"
+                   category="product" type="text/plain">
+         { data($VAR_Fixed_Header/File_Description) }
+         </metadata>,
+
+         <!-- FILE CLASS -->
+         <metadata queryable="fileclass" name="File class"
+                   category="product" type="text/plain">
+         { data($VAR_Fixed_Header/File_Class) }
+         </metadata>,
+
+         <!-- CREATOR -->
+         <metadata queryable="creator" name="Creator"
+                   category="product" type="text/plain">
+         { data($VAR_Fixed_Header/Source/Creator) }
+         </metadata>,
+
+         <!-- CREATOR VERSION -->
+         <metadata queryable="creatorversion" name="Creator version"
+                   category="product" type="text/plain">
+         { data($VAR_Fixed_Header/Source/Creator_Version) }
+         </metadata>
+      )
+      ]]>
+      </dhus:metadataExtractor>
+
+   </rdf:Description>
+
+</rdf:RDF>

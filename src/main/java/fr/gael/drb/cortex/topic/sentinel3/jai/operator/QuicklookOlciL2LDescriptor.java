@@ -76,7 +76,7 @@ public class QuicklookOlciL2LDescriptor extends OperationDescriptorImpl {
      * @see ParameterBlockJAI
      * @see RenderedOp
      *
-     * @param OGVI the RenderedImage
+     * @param GIFAPAR the RenderedImage
      * @param LQSF the RenderedImage
      * @param pixels_correction per bands scale/offset pixels correction
      * @return The <code>RenderedOp</code> destination.

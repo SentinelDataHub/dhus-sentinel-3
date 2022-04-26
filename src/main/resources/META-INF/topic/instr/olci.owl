@@ -247,11 +247,23 @@
       <img:descriptor rdf:parseType="Literal">
            <img:collection xmlns:img="&img;">
               <img:source>.</img:source>
-              <img:raster name="OGVI">
-                 <img:width>ogvi.nc/root/dimensions/columns</img:width>
-                 <img:height>ogvi.nc/root/dimensions/rows</img:height>
+              <img:raster name="GIFAPAR-OGVI">
+                 <img:width>
+                    if (*[matches(name(),"gifapar.nc")])
+                    then gifapar.nc/root/dimensions/columns
+                    else ogvi.nc/root/dimensions/columns
+                 </img:width>
+                 <img:height>
+                    if (*[matches(name(),"gifapar.nc")])
+                    then gifapar.nc/root/dimensions/rows
+                    else ogvi.nc/root/dimensions/rows
+                 </img:height>
                  <img:bandNumber>1</img:bandNumber>
-                 <img:data sampleModel="banded">ogvi.nc/root/dataset/OGVI/rows/columns</img:data>
+                 <img:data sampleModel="banded">
+                    if (*[matches(name(),"gifapar.nc")])
+                    then gifapar.nc/root/dataset/GIFAPAR/rows/columns
+                    else ogvi.nc/root/dataset/OGVI/rows/columns
+                 </img:data>
               </img:raster>
            </img:collection>
       </img:descriptor>
@@ -263,13 +275,9 @@
                while (iterator.hasNext())
                   pb.addSource(iterator.next());
 
-               pb.set(new fr.gael.drb.cortex.topic.sentinel3.jai.operator.
-                  Common.PixelCorrection[]{
-                     fr.gael.drb.cortex.topic.sentinel3.jai.operator.
-                        Common.extractPixelCorrectionUByte (source, "ogvi", "OGVI"),
-                     }, 0);
-               pb.set(fr.gael.drb.cortex.topic.sentinel3.jai.operator.
-                        QuicklookOlciL2LRIF.extractFlags(source), 1);
+               pb.set(new fr.gael.drb.cortex.topic.sentinel3.jai.operator.Common.PixelCorrection[]{
+                         fr.gael.drb.cortex.topic.sentinel3.jai.operator.Common.extractPixelCorrectionUByte(source, "gifapar", "GIFAPAR"),}, 0);
+               pb.set(fr.gael.drb.cortex.topic.sentinel3.jai.operator.QuicklookOlciL2LRIF.extractFlags(source), 1);
 
                img = JAI.create("QuicklookOlciL2L",pb);
                return img;

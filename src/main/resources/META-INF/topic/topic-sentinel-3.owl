@@ -47,6 +47,7 @@
 
    <owl:Ontology rdf:about="&s3;">
       <rdfs:label xml:lang="en">Sentinel-3 - Product Ontology</rdfs:label>
+      <owl:imports rdf:resource="file:META-INF/topic/ipf/auxiliary.owl"/>
       <owl:imports rdf:resource="file:META-INF/topic/ipf/level-0.owl"/>
       <owl:imports rdf:resource="file:META-INF/topic/ipf/level-1_2.owl"/>
       <owl:imports rdf:resource="file:META-INF/topic/instr/olci.owl"/>
