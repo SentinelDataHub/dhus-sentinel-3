@@ -53,7 +53,7 @@
       <owl:imports rdf:resource="file:META-INF/topic/instr/olci.owl"/>
       <owl:imports rdf:resource="file:META-INF/topic/instr/slstr.owl"/>
       <owl:imports rdf:resource="file:META-INF/topic/instr/sral-mwr.owl"/>
-      <owl:imports rdf:resource="file:META-INF/topic/instr/synergy.owl"/>            
+      <owl:imports rdf:resource="file:META-INF/topic/instr/synergy.owl"/>
    </owl:Ontology>
    
    <!-- ================================================================== -->
@@ -62,35 +62,34 @@
    <owl:Class rdf:about="&s3;product">
       
       <rdfs:label>SENTINEL-3 Product</rdfs:label>
-	  <rdfs:comment xml:lang="en">
-        	 A Sentinel-3 product is derived from XML Formatted Data Unit (XFDU).
+      <rdfs:comment xml:lang="en">
+        A Sentinel-3 product is derived from XML Formatted Data Unit (XFDU).
       </rdfs:comment>	
       <rdfs:subClassOf rdf:resource="&drb;item" />
       <drb:signature rdf:parseType="Resource">
-	  <drb:nameMatch>S3[AB_]_(OL|SL|SR|DO|MW|GN|SY|TM)_[012]_(SRA___|SRA_A_|SRA_BS|CAL___|MWR___|SLT___|EFR___|CR0___|CR1___|GNS___|NAV___|DOP___|HKM___|NAT___|HKM2__|ERR___|RAC___|SPC___|EFR_BW|ERR_BW|RBT___|RBT_BW|MISR__|LAN___|WAT___|WFR___|LFR___|WRR___|LRR___|WRR_BW|LFR_BW|WFR_BW|LRR_BW|WCT___|WST___|LST___|LST_BW|SYN___|VGP___|VGK___|VG1___|V10___|SYN_BW|VGP_BW|VG1_BW|V10_BW|FRP___|AOD___)_\d{8}T\d{6}_\d{8}T\d{6}_\d{8}T\d{6}_\w{17}_\w{3}_\w{8}.SEN3</drb:nameMatch>
-	  <drb:xqueryTest>
+         <drb:nameMatch>S3[AB_]_(OL|SL|SR|DO|MW|GN|SY|TM)_[012]_(SRA___|SRA_A_|SRA_BS|CAL___|MWR___|SLT___|EFR___|CR0___|CR1___|GNS___|NAV___|DOP___|HKM___|NAT___|HKM2__|ERR___|RAC___|SPC___|EFR_BW|ERR_BW|RBT___|RBT_BW|MISR__|LAN_(__|HY|LI|SI)|WAT___|WFR___|LFR___|WRR___|LRR___|WRR_BW|LFR_BW|WFR_BW|LRR_BW|WCT___|WST___|LST___|LST_BW|SYN___|VGP___|VGK___|VG1___|V10___|SYN_BW|VGP_BW|VG1_BW|V10_BW|FRP___|AOD___)_\d{8}T\d{6}_\d{8}T\d{6}_\d{8}T\d{6}_\w{17}_\w{3}_\w{8}.SEN3</drb:nameMatch>
+         <drb:xqueryTest>
          <![CDATA[
             exists (*[name() = "xfdumanifest.xml"])
          ]]>
-      </drb:xqueryTest>
+         </drb:xqueryTest>
       </drb:signature>
    </owl:Class>
 
    <owl:Class rdf:about="&s3;aux_product">
-      
       <rdfs:label>SENTINEL-3 Auxiliary Product</rdfs:label>
-	  <rdfs:comment xml:lang="en">
-        	 A Sentinel-3 Auxiliary product is derived from XML Formatted Data Unit (XFDU).
+      <rdfs:comment xml:lang="en">
+         A Sentinel-3 Auxiliary product is derived from XML Formatted Data Unit (XFDU).
       </rdfs:comment>	
       <rdfs:subClassOf rdf:resource="&drb;item" />
       <drb:signature rdf:parseType="Resource">
-	  <drb:nameMatch>S3[AB_]_(OL|SL|SR|DO|MW|GN|SY|TM|AX)_[012_]_\w{4}AX\w{79}.SEN3</drb:nameMatch>
-	  <drb:xqueryTest>
+         <drb:nameMatch>S3[AB_]_(OL|SL|SR|DO|MW|GN|SY|TM|AX)_[012_]_\w{4}AX\w{79}.SEN3</drb:nameMatch>
+         <drb:xqueryTest>
          <![CDATA[
             exists (*[name() = "xfdumanifest.xml"])
          ]]>
-      </drb:xqueryTest>
+         </drb:xqueryTest>
       </drb:signature>
    </owl:Class>
-   
+
 </rdf:RDF>

@@ -55,7 +55,7 @@
       </rdfs:comment>      
       <rdfs:subClassOf rdf:resource="&s3;ipf_level_1_2"/>
       <drb:signature rdf:parseType="Resource">
-         <drb:nameMatch>S3[AB_]_SR_[12]_.*</drb:nameMatch>	  	 
+         <drb:nameMatch>S3[AB_]_SR_[12]_.*</drb:nameMatch>
       </drb:signature>
    </owl:Class>
   
@@ -72,7 +72,7 @@
       </rdfs:comment>      
       <rdfs:subClassOf rdf:resource="&s3;ipf_sral_level_1_2"/>
       <drb:signature rdf:parseType="Resource">
-         <drb:nameMatch>S3[AB_]_SR_[12]_(SRA___|SRA_A_|SRA_BS|LAN___|WAT___).*</drb:nameMatch>	  	 
+         <drb:nameMatch>S3[AB_]_SR_[12]_(SRA___|SRA_A_|SRA_BS|LAN_(__|HY|LI|SI)|WAT___).*</drb:nameMatch>
       </drb:signature>
    </owl:Class>   
    
@@ -89,7 +89,7 @@
       </rdfs:comment>      
       <rdfs:subClassOf rdf:resource="&s3;ipf_sral_level_1_2_no_cal"/>
       <drb:signature rdf:parseType="Resource">
-         <drb:nameMatch>S3[AB_]_SR_2_(LAN___|WAT___).*</drb:nameMatch>	  	 
+         <drb:nameMatch>S3[AB_]_SR_2_(LAN_(__|HY|LI|SI)|WAT___).*</drb:nameMatch>
       </drb:signature>
    </owl:Class>
 
@@ -99,7 +99,6 @@
    <!--                                                                     -->
    <!-- =================================================================== -->
 
-
   <owl:Class rdf:about="&s3;ipf_mwr_level_1">
       <rdfs:label xml:lang="en">IPF Level-1 (MWR) </rdfs:label>
       <rdfs:comment xml:lang="en">
@@ -108,7 +107,7 @@
       </rdfs:comment>      
       <rdfs:subClassOf rdf:resource="&s3;ipf_level_1_2"/>
       <drb:signature rdf:parseType="Resource">
-         <drb:nameMatch>S3[AB_]_MW_1_(MWR___|CAL___).*</drb:nameMatch>	  	 
+         <drb:nameMatch>S3[AB_]_MW_1_(MWR___|CAL___).*</drb:nameMatch>
       </drb:signature>
    </owl:Class>
       
