@@ -11,7 +11,7 @@
    <groupId>eu.serco.xmf.drb</groupId>
    <artifactId>dhus-addon-sentinel-3</artifactId>
    <packaging>jar</packaging>
-   <version>1.1.4-osf</version>
+   <version>1.1.6-osf</version>
 
    <name>DHuS - Sentinel-3 addon</name>
 

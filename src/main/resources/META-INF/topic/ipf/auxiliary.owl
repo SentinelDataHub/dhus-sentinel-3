@@ -146,4 +146,92 @@
       </drb:signature>
    </owl:Class>
 
+   <!-- ================================================================== -->
+   <!-- Sentinel-3 Auxiliary SALP -> PDGS INTERFACE                        -->
+   <!-- WARN this class is not a subclass of 'Sentinel-3 Product'          -->
+   <!--                                   or 'Sentinel-3 Auxiliary Product'-->
+   <!-- ================================================================== -->
+
+   <!-- ================================================ -->
+   <!-- Sentinel-3 SALP -> PDGS INTERFACE                -->
+   <!-- ================================================ -->
+
+   <!-- Examples
+        S3A_SR___MDO_AX_20220705T215523_20220707T002323_20220707T080706___________________CNE_O_ST____.TGZ
+        S3A_SR___POE_AX_20220607T215523_20220609T002323_20220629T095739___________________CNE_O_NT____.TGZ
+        S3B_SR___MDO_AX_20220705T215523_20220707T002323_20220707T082451___________________CNE_O_ST____.TGZ
+        S3B_SR___POE_AX_20220607T215523_20220609T002323_20220629T112236___________________CNE_O_NT____.TGZ -->
+
+   <owl:Class rdf:about="&s3;auxiliarySALP-PDGS">
+      <rdfs:label xml:lang="en">Sentinel-3 SALP / PDGS INTERFACE Auxiliary TGZ Product</rdfs:label>
+      <rdfs:comment xml:lang="en">
+         Sentinel-3 SALP / PDGS INTERFACE Auxiliary TGZ Product.
+      </rdfs:comment>
+      <rdfs:subClassOf rdf:resource="&drb;tgz"/>
+      <drb:signature rdf:parseType="Resource">
+         <drb:nameMatch>S3(A|B)_SR___(MDO|POE)_AX.*</drb:nameMatch>
+      </drb:signature>
+   </owl:Class>
+
+   <owl:Class rdf:about="&s3;auxiliarySALP-PDGSEOFFile">
+      <rdfs:label xml:lang="en">Sentinel-3 SALP / PDGS INTERFACE EOF File</rdfs:label>
+      <rdfs:comment xml:lang="en">
+         Sentinel-3 SALP / PDGS INTERFACE EOF File.
+      </rdfs:comment>
+      <rdfs:subClassOf rdf:resource="&drb;item"/>
+      <drb:signature rdf:parseType="Resource">
+         <drb:nameMatch>S3(A|B)_SR___(MDO|POE)_AX.*EOF</drb:nameMatch>
+      </drb:signature>
+      <drb:implementationIdentifier>xml</drb:implementationIdentifier>
+   </owl:Class>
+
+   <owl:Class rdf:about="&s3;auxiliarySALP-PDGSXMLFile">
+      <rdfs:label xml:lang="en">Sentinel-3 SALP / PDGS INTERFACE XML File</rdfs:label>
+      <rdfs:comment xml:lang="en">
+         Sentinel-3 SALP / PDGS INTERFACE XML File.
+      </rdfs:comment>
+      <rdfs:subClassOf rdf:resource="&drb;xml"/>
+      <drb:signature rdf:parseType="Resource">
+         <drb:nameMatch>S3(A|B)_SR___(MDO|POE)_AX.*XML</drb:nameMatch>
+      </drb:signature>
+   </owl:Class>
+
+   <!-- ================================================ -->
+   <!-- Sentinel-3 SALP -> SR___MDO_AX                   -->
+   <!-- ================================================ -->
+
+   <!-- Examples
+        S3A_SR___MDO_AX_20220705T215523_20220707T002323_20220707T080706___________________CNE_O_ST____.TGZ
+        S3B_SR___MDO_AX_20220705T215523_20220707T002323_20220707T082451___________________CNE_O_ST____.TGZ -->
+
+   <owl:Class rdf:about="&s3;auxiliarySALP-PDGS-Mdo">
+      <rdfs:label xml:lang="en">Sentinel-3 SALP / PDGS INTERFACE - SRAL MDO Auxiliary Product</rdfs:label>
+      <rdfs:comment xml:lang="en">
+         Sentinel-3 SALP / PDGS INTERFACE SRAL MDO Auxiliary Product.
+      </rdfs:comment>
+      <rdfs:subClassOf rdf:resource="&s3;auxiliarySALP-PDGS"/>
+      <drb:signature rdf:parseType="Resource">
+         <drb:nameMatch>S.._SR___MDO.*</drb:nameMatch>
+      </drb:signature>
+   </owl:Class>
+
+   <!-- ================================================ -->
+   <!-- Sentinel-3 SALP -> SR___POE_AX                   -->
+   <!-- ================================================ -->
+
+   <!-- Examples
+        S3A_SR___POE_AX_20220607T215523_20220609T002323_20220629T095739___________________CNE_O_NT____.TGZ
+        S3B_SR___POE_AX_20220607T215523_20220609T002323_20220629T112236___________________CNE_O_NT____.TGZ -->
+
+   <owl:Class rdf:about="&s3;auxiliarySALP-PDGS-Poe">
+      <rdfs:label xml:lang="en">Sentinel-3 SALP / PDGS INTERFACE - SRAL POE Auxiliary Product</rdfs:label>
+      <rdfs:comment xml:lang="en">
+         Sentinel-3 SALP / PDGS INTERFACE SRAL POE Auxiliary Product.
+      </rdfs:comment>
+      <rdfs:subClassOf rdf:resource="&s3;auxiliarySALP-PDGS"/>
+      <drb:signature rdf:parseType="Resource">
+         <drb:nameMatch>S.._SR___POE.*</drb:nameMatch>
+      </drb:signature>
+   </owl:Class>
+
 </rdf:RDF>

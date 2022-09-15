@@ -127,7 +127,9 @@ public class QuicklookVgpRIF implements RenderedImageFactory
                 for (int index_cols = 0; index_cols < values.getLength(); index_cols++)
                 {
                     ds[index_rows][index_cols] =
-                            ((fr.gael.drb.value.UnsignedByte) values.getElement(index_cols).getValue()).shortValue();
+                            ((fr.gael.drb.value.UnsignedByte) values.getElement(index_cols).getValue()
+                                    .convertTo(Value.UNSIGNED_BYTE_ID))
+                                    .shortValue();
                 }
             }
             return ds;
